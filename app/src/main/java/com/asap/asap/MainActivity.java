@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton, signUpButton;
 
 
-    static public final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
+    static public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
     static public MyAPI myAPI;
 
     @Override
@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 클릭 시 이후 백과 연결해서 RestAPI 확인 후 인증 과정
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                // FLAG_ACTIVITY_SINGLE_TOP : 실행하고자 하는 Activity가 존재하면 생성 되신 순서를 가장 위로 올리는 flag
+                // 이것을 사용하여 MainActivity를 OnCreate하지 않고 재사용하기 때문에 초기화가 되지 않음
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });

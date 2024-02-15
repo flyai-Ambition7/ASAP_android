@@ -41,21 +41,21 @@ public interface MyAPI {
 
 
     // 회원가입 API
-    @POST("/signup/")
+    @POST("/asap/signup/")
     Call<SignUpItem> post_signup(@Body SignUpItem post);
-    @GET("/signup/")
+    @GET("/asap/signup/")
     Call<List<SignUpItem>> get_signup();
 
-    @GET("/signup/{pk}/")
+    @GET("/asap/signup/{pk}/")
     Call<SignUpItem> get_signup_pk(@Path("pk") int pk);
 
     // 로그인 API
-    @POST("/login/")
+    @POST("/asap/login/")
     Call<LoginItem> post_login(@Body LoginItem post);
-    @GET("/login/")
+    @GET("/asap/login/")
     Call<List<LoginItem>> get_login();
 
-    @GET("/login/{pk}/")
+    @GET("/asap/login/{pk}/")
     Call<LoginItem> get_login_pk(@Path("pk") int pk);
 
     // 신메뉴 API : 신메뉴 데이터 입력 new_menu_input

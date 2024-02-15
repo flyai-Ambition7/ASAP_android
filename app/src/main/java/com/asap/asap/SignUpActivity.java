@@ -83,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
                     item.setPassword(password);
                     item.setEmail(email);
                     item.setMobile(mobile);
+                    item.setName("이름이다!");
 
         Call<SignUpItem> postCall = myAPI.post_signup(item);
         postCall.enqueue(new Callback<SignUpItem>() {
