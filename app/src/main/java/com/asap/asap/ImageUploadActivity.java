@@ -2,15 +2,21 @@ package com.asap.asap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class ImageUploadActivity extends AppCompatActivity {
     ImageView imageUploadImageView;
@@ -79,6 +85,25 @@ public class ImageUploadActivity extends AppCompatActivity {
             isImageChanged = true;
             // 이후 저 uri를 어떻게 서버로 보낼지도 고려해서 짜두기
             //
+
+            // Uri를 Bitmap으로 변환
+            Bitmap bitmap = getBitmapFromUri(selectedImageUri);
+
+            // Bitmap을 Base64로 변환
+            String base64Image = ImageUtils.bitmapToBase64(bitmap);
+
+            Log.d("이미지 변환된 것 확인 ------", base64Image);
+        }
+    }
+
+    private Bitmap getBitmapFromUri(Uri uri) {
+        try {
+            // Uri에서 InputStream을 통해 Bitmap으로 변환
+            InputStream imageStream = getContentResolver().openInputStream(uri);
+            return BitmapFactory.decodeStream(imageStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
