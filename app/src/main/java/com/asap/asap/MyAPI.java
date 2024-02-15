@@ -72,6 +72,7 @@ public interface MyAPI {
     //
 
     // 최종 결과물 API : 홍보물 출력 image_result
+    /*
     @POST("/image_result/")
     Call<ImageResultItem> post_image_result(@Body ImageResultItem post);
     @GET("/image_result/")
@@ -79,7 +80,7 @@ public interface MyAPI {
 
     @GET("/image_result/")
     Call<ImageResultItem> get_image_result(@Path("pk") int pk);
-
+    */
 
 
 }

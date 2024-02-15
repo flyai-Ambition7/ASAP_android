@@ -4,23 +4,24 @@ public class NewMenuInputItem {
 
 
     // 공통
-    // image
- //   String image;
+
 
     // TextUpload1Activiy에서 받는 것들
     String store_name,purpose, result_type, theme;
 
     // 별도 - 신메뉴일 때
     String product_name,description, business_hours, location, contact;
-/*
-    public String getImage() {
-        return image;
+
+    String imageData; // Base64로 변환된 이미지 데이터
+
+
+    public String getImageData() {
+        return imageData;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
     }
-*/
     public String getStore_name() {
         return store_name;
     }

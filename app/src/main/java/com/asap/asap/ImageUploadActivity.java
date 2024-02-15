@@ -23,6 +23,11 @@ public class ImageUploadActivity extends AppCompatActivity {
     ImageButton leftButton, rightButton;
     private static final int PICK_IMAGE_REQUEST = 1;
     boolean isImageChanged = false;
+    // 이미지 변경 관련
+    Uri selectedImageUri;
+    Bitmap bitmap;
+    String base64Image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,8 @@ public class ImageUploadActivity extends AppCompatActivity {
                 if (isImageChanged) {
                     Intent intent = new Intent(ImageUploadActivity.this, TextUpload1Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    // 이미지 비트맵 함께 넘기기
+                    intent.putExtra("base64Image", base64Image);
                     startActivity(intent);
                 } else {
                     Toast.makeText(ImageUploadActivity.this, "이미지를 넣어주세요.", Toast.LENGTH_SHORT).show();
@@ -78,7 +85,7 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             // Uri 가져오기
-            Uri selectedImageUri = data.getData();
+            selectedImageUri = data.getData();
             // 현재 이미지 뷰 교체
             imageUploadImageView.setImageURI(selectedImageUri);
             // 이미지가 변경되었음을 표시
@@ -87,10 +94,10 @@ public class ImageUploadActivity extends AppCompatActivity {
             //
 
             // Uri를 Bitmap으로 변환
-            Bitmap bitmap = getBitmapFromUri(selectedImageUri);
+            bitmap = getBitmapFromUri(selectedImageUri);
 
             // Bitmap을 Base64로 변환
-            String base64Image = ImageUtils.bitmapToBase64(bitmap);
+            base64Image = ImageUtils.bitmapToBase64(bitmap);
 
             Log.d("이미지 변환된 것 확인 ------", base64Image);
         }

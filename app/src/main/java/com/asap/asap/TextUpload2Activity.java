@@ -26,12 +26,18 @@ public class TextUpload2Activity extends AppCompatActivity {
 
     // 입력 내용
     String productName,  price,  info, time, where, storePhone;
+    String base64Image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_upload2);
 
+        // Intent에서 전달된 Base64 이미지 문자열 가져오기
+        base64Image = getIntent().getStringExtra("base64Image");
+        Log.d("base64Image 최종 전달 완료", base64Image);
+        
+        // 객체 생성
         leftButton = findViewById(R.id.textUpload2LeftImageButton);
         rightButton = findViewById(R.id.textUpload2RightImageButton);
 
@@ -87,9 +93,9 @@ public class TextUpload2Activity extends AppCompatActivity {
             Log.d(TAG,"POST");
             NewMenuInputItem item = new NewMenuInputItem();
             //item.setImage("테스트 이미지"); // 이후 추가
+            item.setImageData(base64Image); // base64로 변형한 이미지 전달
 
-
-
+            
             item.setStore_name("스토어 이름");
             item.setPurpose("목적");
             item.setResult_type("결과물 형태");
