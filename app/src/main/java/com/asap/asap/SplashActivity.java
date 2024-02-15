@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 //Intent intent = new Intent(SplashActivity.this, RestAPITestPage.class);
                 //Intent intent = new Intent(SplashActivity.this, SignUpActivity.class);
-
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 finish();
             }

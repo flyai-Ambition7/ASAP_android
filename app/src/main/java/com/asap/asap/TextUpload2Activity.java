@@ -47,6 +47,7 @@ public class TextUpload2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TextUpload2Activity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -66,6 +67,7 @@ public class TextUpload2Activity extends AppCompatActivity {
                 if (!productName.isEmpty() && !price.isEmpty() && !info.isEmpty()) {
                     if (restAPI()){
                         Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
                     }
 
@@ -84,7 +86,7 @@ public class TextUpload2Activity extends AppCompatActivity {
             final boolean[] isNewMenuInput = {false};
             Log.d(TAG,"POST");
             NewMenuInputItem item = new NewMenuInputItem();
-            //item.setImage("테스트 이미지");
+            //item.setImage("테스트 이미지"); // 이후 추가
             item.setStore_name("스토어 이름");
             item.setPurpose("목적");
             item.setResult_type("결과물 형태");

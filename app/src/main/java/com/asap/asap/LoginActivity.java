@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                         //login()
                         // 로그인 성공하면 넘어가기
                         Intent intent = new Intent(LoginActivity.this, ImageUploadActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
                     }else{
                         Toast.makeText(LoginActivity.this  ,"로그인에 실패했습니다. 다시 입력해주세요", Toast.LENGTH_SHORT).show();

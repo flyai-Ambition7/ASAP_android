@@ -61,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
                     if (signUp()){
                         // 확인되었으면 로그인 페이지로
                         Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
                     }else{
                         // 중복이거나 등의 이유로 되지 않을 경우 다시 입력 받게 함

@@ -30,8 +30,10 @@ public class ImageUploadActivity extends AppCompatActivity {
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ImageUploadActivity.this, LoginActivity.class);
-                startActivity(intent);
+               // Intent intent = new Intent(ImageUploadActivity.this, LoginActivity.class);
+               // intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+               // startActivity(intent);
+                // 왼쪽 버튼 막아두기 = 로그인, 회원가입 화면으로 못가게
             }
         });
 
@@ -41,6 +43,7 @@ public class ImageUploadActivity extends AppCompatActivity {
                 // 이미지 넣었으면 넘어가게 함
                 if (isImageChanged) {
                     Intent intent = new Intent(ImageUploadActivity.this, TextUpload1Activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                 } else {
                     Toast.makeText(ImageUploadActivity.this, "이미지를 넣어주세요.", Toast.LENGTH_SHORT).show();
