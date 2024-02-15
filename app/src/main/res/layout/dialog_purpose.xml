@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/purposeSelectRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/newMenuRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="신메뉴 홍보" />
+
+        <RadioButton
+            android:id="@+id/openRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="개업 홍보" />
+
+        <RadioButton
+            android:id="@+id/eventRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="이벤트 홍보" />
+
+        <RadioButton
+            android:id="@+id/etcPurposeRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="기타(직접 입력)" />
+
+        <EditText
+            android:id="@+id/etcPurposeEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="어떤 홍보인지 입력해주세요"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#C8C8C8" />
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/noButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_for_orange_button"
+            android:text="취소"
+            tools:ignore="TextSizeCheck"/>
+
+        <Button
+            android:id="@+id/yesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/shape_for_orange_button"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
+    </LinearLayout>
+
+</LinearLayout>

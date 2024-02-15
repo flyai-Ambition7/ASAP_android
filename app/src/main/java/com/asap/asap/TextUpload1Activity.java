@@ -1,0 +1,99 @@
+package com.asap.asap;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class TextUpload1Activity extends AppCompatActivity {
+    ImageButton leftButton, rightButton;
+    EditText storeNameEditText,themeEditText;
+    public static TextView purposeSelectTextView, resultFormSelectTextView;
+    public static String selectedPurposeText, selectedResultFormText;
+    DialogPurpose dialogPurpose;
+    DialogResultForm dialogResultForm;
+    // 입력 받는 것
+    String storeName, theme, purpose, resultForm;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_text_upload1);
+
+        // 객체 가져오기
+        leftButton = findViewById(R.id.textUpload1LeftImageButton);
+        rightButton = findViewById(R.id.textUpload1RightImageButton);
+        storeNameEditText = findViewById(R.id.storeNameEditText);
+        themeEditText = findViewById(R.id.themeEditText);
+        purposeSelectTextView = findViewById(R.id.purposeSelectTextView);
+        resultFormSelectTextView = findViewById(R.id.resultFormSelectTextView);
+
+        // 버튼 이동 처리
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TextUpload1Activity.this, ImageUploadActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 사용자 입력 데이터 확인
+                storeName = storeNameEditText.getText().toString().trim();
+                theme = themeEditText.getText().toString().trim();
+                purpose = purposeSelectTextView.getText().toString().trim();
+                resultForm = resultFormSelectTextView.getText().toString().trim();
+
+                // 모든 입력 비어있지 않은지 확인
+                if (!storeName.isEmpty() && !theme.isEmpty() && !purpose.isEmpty() && !resultForm.isEmpty()) {
+                    // 모든 입력 채워져 있으면 
+                    
+                    // REST API로 보내야 함
+                    
+                    // 다음 액티비티로 이동
+                    Intent intent = new Intent(TextUpload1Activity.this, TextUpload2Activity.class);
+                    startActivity(intent);
+                } else {
+                    // 빈 값이 있으면 Toast 메시지 표시
+                    Toast.makeText(TextUpload1Activity.this, "빈칸 없이 채워주세요", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        /*다이얼로그 띄우기*/
+        purposeSelectTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogPurpose();
+            }
+        });
+        resultFormSelectTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogResultForm();
+            }
+        });
+
+    }
+
+    public void showDialogPurpose(){
+        // 원하는 디자인 및 기능 추가
+        // 주의: findViewById() 사용 시 앞에 반드시 다이얼로그 이름 붙이기
+        dialogPurpose = new DialogPurpose(this);
+        dialogPurpose.show();
+
+    }
+
+    public void showDialogResultForm(){
+        dialogResultForm = new DialogResultForm(this);
+        dialogResultForm.show();
+    }
+}

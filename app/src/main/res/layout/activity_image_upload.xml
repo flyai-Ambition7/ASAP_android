@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ImageUploadActivity">
+    <TextView
+        android:id="@+id/imageUploadTitleLogoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="ASAP"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@color/mainOrange"
+        android:textSize="30dp"
+        android:textStyle="bold|italic"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="490dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/imageUploadTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:text="이미지를 삽입해주세요"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageUploadLeftImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="leftButton"
+                android:scaleType="centerInside"
+                android:src="@drawable/upload_page_left_button" />
+
+            <ImageButton
+                android:id="@+id/imageUploadRightImageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:contentDescription="rightButton"
+                android:scaleType="centerInside"
+                android:src="@drawable/upload_page_right_button" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageUploadImageView"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="30dp"
+            android:clickable="true"
+            android:contentDescription="uploadImageView"
+            android:src="@drawable/upload_page_default_image" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/indicatorLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        >
+
+        <ImageView
+            android:id="@+id/indicator01"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="2dp"
+            android:src="@drawable/shape_circle_orange" />
+
+        <ImageView
+            android:id="@+id/indicator02"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="2dp"
+            android:src="@drawable/shape_circle_gray" />
+
+        <ImageView
+            android:id="@+id/indicator03"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="2dp"
+            android:src="@drawable/shape_circle_gray" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/signUpTitleLogoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="ASAP"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="#DD6140"
+        android:textSize="30dp"
+        android:textStyle="bold|italic"
+        />
+
+    <LinearLayout
+        android:id="@+id/signUpUserNameLinearLayout"
+        android:layout_width="335dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:layout_marginTop="110dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_signup_input_background"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/signUpUserNameImageView"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/login_signup_icon_username" />
+
+        <EditText
+            android:id="@+id/signUpUserNameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="text"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:textColorHint="#C8C8C8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/signUpPasswordLinearLayout"
+        android:layout_width="335dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_signup_input_background"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:id="@+id/signUpPasswordImageView"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/login_signup_icon_password" />
+
+        <EditText
+            android:id="@+id/signUpPasswordEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:textColorHint="#C8C8C8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/signUpEmailLinearLayout"
+        android:layout_width="335dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_signup_input_background"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:id="@+id/signUpEmailImageView"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/signup_icon_email" />
+
+        <EditText
+            android:id="@+id/signUpEmailEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:textColorHint="#C8C8C8" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/signUpMobileLinearLayout"
+        android:layout_width="335dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_signup_input_background"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:visibility="visible"
+        >
+
+        <ImageView
+            android:id="@+id/signUpMobileImageView"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/signup_icon_mobile" />
+
+        <EditText
+            android:id="@+id/signUpMobileEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Mobile"
+            android:inputType="phone"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:textColorHint="#C8C8C8" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_for_orange_button"
+        android:gravity="center"
+        android:text="가입하기"
+        android:textColor="@color/white" />
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="mainOrange">#DD6140</color>
+    <color name="alpha30Orange">#30DD6140</color>
+    <color name="hint">#C8C8C8</color>
+    <color name="inputText">#424753</color>
+    <color name="lightGray">#BEBEBE</color>
+    <color name="inputBackground">#EEF1F4</color>
+</resources>

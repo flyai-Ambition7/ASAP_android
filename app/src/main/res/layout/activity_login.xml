@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/loginTitleLogoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="ASAP"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="#DD6140"
+        android:textSize="30dp"
+        android:textStyle="bold|italic"
+       />
+
+    <LinearLayout
+        android:id="@+id/loginUserNameLinearLayout"
+        android:layout_width="335dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_signup_input_background"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/loginUserNameImageView"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/login_signup_icon_username" />
+
+        <EditText
+            android:id="@+id/loginUserNameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Username"
+            android:inputType="text"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:textColorHint="#C8C8C8" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loginPasswordLinearLayout"
+        android:layout_width="335dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/login_signup_input_background"
+        android:elevation="5dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:visibility="visible"
+      >
+
+        <ImageView
+            android:id="@+id/loginPasswordImageView"
+            android:layout_width="24dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:src="@drawable/login_signup_icon_password" />
+
+        <EditText
+            android:id="@+id/loginPasswordEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:textColorHint="#C8C8C8" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/forgotPWTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="right"
+        android:layout_gravity="right"
+        android:textColor="#C8C8C8"
+        android:text="비밀번호를 잊으셨나요?" />
+
+    <LinearLayout
+        android:id="@+id/askSingUpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/noAccountTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="계정이 없으신가요?" />
+
+        <TextView
+            android:id="@+id/signUpTextView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="#C8C8C8"
+            android:clickable="true"
+            android:text="회원가입" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_for_orange_button"
+        android:gravity="center"
+        android:text="시작하기"
+        android:textColor="@color/white" />
+
+</LinearLayout>
