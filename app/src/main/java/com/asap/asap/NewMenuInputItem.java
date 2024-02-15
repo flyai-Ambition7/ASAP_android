@@ -5,16 +5,14 @@ public class NewMenuInputItem {
 
     // 공통
     // image
-    String image;
+ //   String image;
 
     // TextUpload1Activiy에서 받는 것들
-    String storeName, theme, purpose, resultForm;
+    String store_name,purpose, result_type, theme;
 
     // 별도 - 신메뉴일 때
-    String productName,  info, time, where, storePhone;
-
-
-    int price;
+    String product_name,description, business_hours, location, contact;
+/*
     public String getImage() {
         return image;
     }
@@ -22,20 +20,13 @@ public class NewMenuInputItem {
     public void setImage(String image) {
         this.image = image;
     }
-    public String getStoreName() {
-        return storeName;
+*/
+    public String getStore_name() {
+        return store_name;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
-    }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
     }
 
     public String getPurpose() {
@@ -46,20 +37,60 @@ public class NewMenuInputItem {
         this.purpose = purpose;
     }
 
-    public String getResultForm() {
-        return resultForm;
+    public String getResult_type() {
+        return result_type;
     }
 
-    public void setResultForm(String resultForm) {
-        this.resultForm = resultForm;
+    public void setResult_type(String result_type) {
+        this.result_type = result_type;
     }
 
-    public String getProductName() {
-        return productName;
+    public String getTheme() {
+        return theme;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+
+    public void setProduct_name(String product_name) {
+        this.product_name = product_name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBusiness_hours() {
+        return business_hours;
+    }
+
+    public void setBusiness_hours(String business_hours) {
+        this.business_hours = business_hours;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public int getPrice() {
@@ -70,39 +101,7 @@ public class NewMenuInputItem {
         this.price = price;
     }
 
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getWhere() {
-        return where;
-    }
-
-    public void setWhere(String where) {
-        this.where = where;
-    }
-
-    public String getStorePhone() {
-        return storePhone;
-    }
-
-    public void setStorePhone(String storePhone) {
-        this.storePhone = storePhone;
-    }
-
+    int price;
 
 
 }

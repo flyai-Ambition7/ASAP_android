@@ -59,7 +59,8 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     //공백 아닐 때
                     // REST API로 검증하는 과정 추가 ====================
-                    if (login()){
+                    if (true){
+                        //login()
                         // 로그인 성공하면 넘어가기
                         Intent intent = new Intent(LoginActivity.this, ImageUploadActivity.class);
                         startActivity(intent);
@@ -91,8 +92,11 @@ public class LoginActivity extends AppCompatActivity {
         Log.d(TAG,"POST");
         LoginItem item = new LoginItem();
 
-        item.setLoginID(loginID);
-        item.setLoginPW(loginPW);
+       // item.setLoginID(loginID);
+       // item.setLoginPW(loginPW);
+        item.setLoginID("admin123");
+        item.setLoginPW("hello123@");
+
 
         Call<LoginItem> postCall = myAPI.post_login(item);
         postCall.enqueue(new Callback<LoginItem>() {

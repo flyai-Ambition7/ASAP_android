@@ -3,10 +3,8 @@ package com.asap.asap;
 // 회원가입 관련
 public class SignUpItem {
     // 회원가입 username, password, email, mobile
-    private String username;
-    private String password;
-    private String email;
-    private String mobile;
+    private String username,password, email, phone;
+   /*
     private String name;
 
     public String getName() {
@@ -16,7 +14,7 @@ public class SignUpItem {
     public void setName(String name) {
         this.name = name;
     }
-
+*/
 
     public String getUsername() {
         return username;
@@ -42,12 +40,11 @@ public class SignUpItem {
         this.email = email;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-
 }

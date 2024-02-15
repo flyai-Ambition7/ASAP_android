@@ -46,8 +46,8 @@ public interface MyAPI {
     @GET("/asap/signup/")
     Call<List<SignUpItem>> get_signup();
 
-    @GET("/asap/signup/{pk}/")
-    Call<SignUpItem> get_signup_pk(@Path("pk") int pk);
+   // @GET("/asap/signup/{pk}/")
+   // Call<SignUpItem> get_signup_pk(@Path("pk") int pk);
 
     // 로그인 API
     @POST("/asap/login/")
@@ -59,12 +59,12 @@ public interface MyAPI {
     Call<LoginItem> get_login_pk(@Path("pk") int pk);
 
     // 신메뉴 API : 신메뉴 데이터 입력 new_menu_input
-    @POST("/new_menu_input/")
+    @POST("/asap/new_menu_input/")
     Call<NewMenuInputItem> post_new_menu_input(@Body NewMenuInputItem post);
-    @GET("/new_menu_input/")
+    @GET("/asap/new_menu_input/")
     Call<List<NewMenuInputItem>> get_new_menu_input();
 
-    @GET("/new_menu_input/{pk}/")
+    @GET("/asap/new_menu_input/{pk}/")
     Call<NewMenuInputItem> get_new_menu_input_pk(@Path("pk") int pk);
     
     // 이후 ui 정해지고 input 정해지면 이벤트, 개업 api에 대해서도 추가 예정

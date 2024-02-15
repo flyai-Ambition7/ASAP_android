@@ -22,7 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText signUpUserNameEditText, signUpPasswordEditText, signUpEmailEditText, signUpMobileEditText;
     Button signUpButton;
 
-    String username, password, email, mobile;
+    String username, password, email, phone;
 
   //  private final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
   //  private MyAPI myAPI;
@@ -50,9 +50,9 @@ public class SignUpActivity extends AppCompatActivity {
                 username = signUpUserNameEditText.getText().toString();
                 password = signUpPasswordEditText.getText().toString();
                 email = signUpEmailEditText.getText().toString();
-                mobile = signUpMobileEditText.getText().toString();
+                phone = signUpMobileEditText.getText().toString();
 
-                if (username.length()==0 || password.length()==0 || email.length()==0 || mobile.length()==0){
+                if (username.length()==0 || password.length()==0 || email.length()==0 || phone.length()==0){
                     // 공백 확인
                     Toast.makeText(SignUpActivity.this  ,"빈칸 없이 제대로 입력해주세요", Toast.LENGTH_SHORT).show();
 
@@ -78,12 +78,17 @@ public class SignUpActivity extends AppCompatActivity {
         final boolean[] isSignUp = {false};
         Log.d(TAG,"POST");
         SignUpItem item = new SignUpItem();
-
+                    /*
                     item.setUsername(username);
                     item.setPassword(password);
                     item.setEmail(email);
-                    item.setMobile(mobile);
-                    item.setName("이름이다!");
+                    item.setPhone(phone);*/
+                 //   item.setName("이름이다!");
+        item.setUsername("abcd1234");
+        item.setPassword("yujin7894@");
+        item.setEmail("yujin45@sookmyung.ac.kr");
+        item.setPhone("010-8951-1834");
+        // 더 살펴봐야 함
 
         Call<SignUpItem> postCall = myAPI.post_signup(item);
         postCall.enqueue(new Callback<SignUpItem>() {
