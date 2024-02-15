@@ -1,7 +1,11 @@
 package com.asap.asap;
 
+import static android.content.ContentValues.TAG;
+import static com.asap.asap.MainActivity.myAPI;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -51,12 +59,20 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     //공백 아닐 때
                     // REST API로 검증하는 과정 추가 ====================
+                    if (login()){
+                        // 로그인 성공하면 넘어가기
+                        Intent intent = new Intent(LoginActivity.this, ImageUploadActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(LoginActivity.this  ,"로그인에 실패했습니다. 다시 입력해주세요", Toast.LENGTH_SHORT).show();
+                    }
                     ///
                     //임시로 입력받기
+                    /*
                     if (loginID.equals("a") && loginPW.equals("a")){
                         Intent intent = new Intent(LoginActivity.this, ImageUploadActivity.class);
                         startActivity(intent);
-                    }
+                    }*/
                     ///
                 }
 
@@ -65,5 +81,41 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    private boolean login(){
+        // rest api
+        ///////////////////////////////////////
+        final boolean[] isLogin = {false};
+        Log.d(TAG,"POST");
+        LoginItem item = new LoginItem();
+
+        item.setLoginID(loginID);
+        item.setLoginPW(loginPW);
+
+        Call<LoginItem> postCall = myAPI.post_login(item);
+        postCall.enqueue(new Callback<LoginItem>() {
+            @Override
+            public void onResponse(Call<LoginItem> call, Response<LoginItem> response) {
+                if(response.isSuccessful()){
+                    Log.d(TAG,"등록 완료");
+                    isLogin[0] = true;
+                }else {
+                    Log.d(TAG,"Status Code : " + response.code());
+                    Log.d(TAG,response.errorBody().toString());
+                    Log.d(TAG,call.request().body().toString());
+                    isLogin[0] = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginItem> call, Throwable t) {
+                Log.d(TAG,"Fail msg : " + t.getMessage());
+                isLogin[0] = false;
+            }
+        });
+        ////
+        return isLogin[0];
     }
 }
