@@ -24,6 +24,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     String username, password, email, phone;
 
+
+
   //  private final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
   //  private MyAPI myAPI;
 

@@ -1,11 +1,16 @@
 package com.asap.asap;
 
+import static android.content.ContentValues.TAG;
+import static com.asap.asap.MainActivity.myAPI;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,11 +21,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 public class ResultActivity extends AppCompatActivity {
     ImageView resultImageView;
     Button homeButton, saveButton;
-
+    String image;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +43,7 @@ public class ResultActivity extends AppCompatActivity {
         // rest api로 이미지 받아오는 부분 필요
         // 받아올 동안 로딩 화면 띄우던 뭔 작업 필요
         // 대기중 이미지 띄워뒀다가 나중에 서버에서 왔다고 하면 그때 view 업데이트 좋을듯함
-
+        showResultImage();
         //////////
 
         // 버튼 동작
@@ -89,4 +97,48 @@ public class ResultActivity extends AppCompatActivity {
             Toast.makeText(ResultActivity.this, "이미지 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void showResultImage(){
+        Log.d(TAG,"GET");
+        Call<List<NewMenuInputItem>> getCall = myAPI.get_new_menu_input();
+        getCall.enqueue(new Callback<List<NewMenuInputItem>>() {
+            @Override
+            public void onResponse(Call<List<NewMenuInputItem>> call, Response<List<NewMenuInputItem>> response) {
+                if( response.isSuccessful()){
+                    List<NewMenuInputItem> mList = response.body();
+                    NewMenuInputItem item = mList.get(mList.size() - 1); // 마지막 항목 가져오기
+                    image = item.getImage();
+                    // Base64 문자열을 디코딩하여 이미지뷰에 설정
+                    displayImageInImageView(image);
+                }else {
+                    Log.d(TAG,"Status Code : " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NewMenuInputItem>> call, Throwable t) {
+                Log.d(TAG,"Fail msg : " + t.getMessage());
+            }
+        });
+
+    }
+
+    private void displayImageInImageView(String base64Image) {
+        try {
+            // Base64 문자열을 디코딩하여 byte 배열로 변환
+            byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+
+            // byte 배열을 Bitmap으로 변환
+            Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+
+            // 이미지뷰에 Bitmap 설정
+            resultImageView.setImageBitmap(decodedBitmap);
+        } catch (IllegalArgumentException e) {
+            // 잘못된 Base64 문자열이 들어왔을 경우에 대한 예외처리
+            Log.d("잘못된 Base64 문자열이 들어옴", "이상한거 들어옴!!!!!!!");
+            e.printStackTrace();
+            // 또는 적절한 에러 메시지를 사용하여 처리
+        }
+    }
+
 }

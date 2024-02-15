@@ -36,12 +36,13 @@ public class TextUpload2Activity extends AppCompatActivity {
     Uri imageUri;
     Bitmap bitmap;
     String base64Image;
-
+    public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
+    public MyAPI myAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_upload2);
-
+        initAPI(BASE_URL);
         // Intent에서 전달된 이미지 URI 가져오기
         imageUriString = getIntent().getStringExtra("imageUri");
         imageUri = Uri.parse(imageUriString);
@@ -90,11 +91,13 @@ public class TextUpload2Activity extends AppCompatActivity {
 
                 // 필수 입력란이 채워져 있는지 확인
                 if (!productName.isEmpty() && !price.isEmpty() && !info.isEmpty()) {
-                    if (restAPI()){
+                    restAPI();
+                /*
+                if (restAPI()){
                         Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         startActivity(intent);
-                    }
+                    }*/
 
 
                 } else {
@@ -134,6 +137,10 @@ public class TextUpload2Activity extends AppCompatActivity {
                     if(response.isSuccessful()){
                         Log.d(TAG,"등록 완료");
                         isNewMenuInput[0] = true;
+                        Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+
                     }else {
                         Log.d(TAG,"Status Code : " + response.code());
                         Log.d(TAG,response.errorBody().toString());
@@ -149,6 +156,7 @@ public class TextUpload2Activity extends AppCompatActivity {
                 }
             });
             ////
+            Log.d("결과 ", String.valueOf(isNewMenuInput[0]));
             return isNewMenuInput[0];
         }
 
@@ -162,4 +170,16 @@ public class TextUpload2Activity extends AppCompatActivity {
             return null;
         }
     }
+
+    public void initAPI(String baseUrl){
+
+        Log.d(TAG,"initSignUpAPI : " + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        myAPI = retrofit.create(MyAPI.class);
+    }
+
 }
