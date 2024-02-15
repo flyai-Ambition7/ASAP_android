@@ -11,9 +11,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface MyAPI {
+    /*
     // 테스트 용도
     @POST("/posts/")
-    Call<PostItem> post_posts(@Body PostItem post);
+    Call<PostItem> post_posts(@Body PostItem post);F
     @GET("@/posts/")
     Call<List<PostItem>> get_posts();
 
@@ -36,34 +37,34 @@ public interface MyAPI {
     @GET("/new_menu_input/{pk}/")
     Call<PostItem> get_new_menu_input2_pk(@Path("pk") int pk);
 
-
+    */
 
 
     // 회원가입 API
-    @POST("@api/signup")
+    @POST("/signup/")
     Call<SignUpItem> post_signup(@Body SignUpItem post);
-    @GET("@api/signup")
+    @GET("/signup/")
     Call<List<SignUpItem>> get_signup();
 
-    @GET("@api/signup/{pk}/")
+    @GET("/signup/{pk}/")
     Call<SignUpItem> get_signup_pk(@Path("pk") int pk);
 
     // 로그인 API
-    @POST("@api/login")
+    @POST("/login/")
     Call<LoginItem> post_login(@Body LoginItem post);
-    @GET("@api/login")
+    @GET("/login/")
     Call<List<LoginItem>> get_login();
 
-    @GET("@api/login/{pk}/")
+    @GET("/login/{pk}/")
     Call<LoginItem> get_login_pk(@Path("pk") int pk);
 
     // 신메뉴 API : 신메뉴 데이터 입력 new_menu_input
-    @POST("@api/new_menu_input")
+    @POST("/new_menu_input/")
     Call<NewMenuInputItem> post_new_menu_input(@Body NewMenuInputItem post);
-    @GET("@api/new_menu_input")
+    @GET("/new_menu_input/")
     Call<List<NewMenuInputItem>> get_new_menu_input();
 
-    @GET("@api/new_menu_input/{pk}/")
+    @GET("/new_menu_input/{pk}/")
     Call<NewMenuInputItem> get_new_menu_input_pk(@Path("pk") int pk);
     
     // 이후 ui 정해지고 input 정해지면 이벤트, 개업 api에 대해서도 추가 예정
@@ -71,12 +72,12 @@ public interface MyAPI {
     //
 
     // 최종 결과물 API : 홍보물 출력 image_result
-    @POST("@api/image_result")
+    @POST("/image_result/")
     Call<ImageResultItem> post_image_result(@Body ImageResultItem post);
-    @GET("@api/new_menu_input")
+    @GET("/image_result/")
     Call<List<ImageResultItem>> get_image_result();
 
-    @GET("@api/new_menu_input/{pk}/")
+    @GET("/image_result/")
     Call<ImageResultItem> get_image_result(@Path("pk") int pk);
 
 

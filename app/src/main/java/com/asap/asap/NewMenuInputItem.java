@@ -1,15 +1,27 @@
 package com.asap.asap;
 
 public class NewMenuInputItem {
+
+
     // 공통
     // image
+    String image;
 
     // TextUpload1Activiy에서 받는 것들
     String storeName, theme, purpose, resultForm;
 
     // 별도 - 신메뉴일 때
-    String productName,  price,  info, time, where, storePhone;
+    String productName,  info, time, where, storePhone;
 
+
+    int price;
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     public String getStoreName() {
         return storeName;
     }
@@ -50,13 +62,14 @@ public class NewMenuInputItem {
         this.productName = productName;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
+
 
     public String getInfo() {
         return info;
