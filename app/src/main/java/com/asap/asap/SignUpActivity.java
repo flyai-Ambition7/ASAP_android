@@ -1,6 +1,7 @@
 package com.asap.asap;
 
 import static android.content.ContentValues.TAG;
+import static com.asap.asap.MainActivity.myAPI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class SignUpActivity extends AppCompatActivity {
     EditText signUpUserNameEditText, signUpPasswordEditText, signUpEmailEditText, signUpMobileEditText;
@@ -24,8 +24,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     String username, password, email, mobile;
 
-    private final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
-    private MyAPI mMyAPI;
+  //  private final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
+  //  private MyAPI myAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         ////
-        initMyAPI(BASE_URL);
+     //   initSignUpAPI(BASE_URL);
         ////
 
         // 객체 가져오기
@@ -58,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 }else{
                     // 빈칸 없으면 rest api로 확인 과정 필요
-                    if (restAPI()){
+                    if (signUp()){
                         // 확인되었으면 로그인 페이지로
                         Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                         startActivity(intent);
@@ -72,10 +72,10 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private boolean restAPI(){
+    private boolean signUp(){
         // rest api
         ///////////////////////////////////////
-        /*
+        final boolean[] isSignUp = {false};
         Log.d(TAG,"POST");
         SignUpItem item = new SignUpItem();
 
@@ -84,42 +84,43 @@ public class SignUpActivity extends AppCompatActivity {
                     item.setEmail(email);
                     item.setMobile(mobile);
 
-        Call<SignUpItem> postCall = mMyAPI.post_posts(item);
+        Call<SignUpItem> postCall = myAPI.post_signup(item);
         postCall.enqueue(new Callback<SignUpItem>() {
+
             @Override
             public void onResponse(Call<SignUpItem> call, Response<SignUpItem> response) {
                 if(response.isSuccessful()){
                     Log.d(TAG,"등록 완료");
+                    isSignUp[0] = true;
                 }else {
                     Log.d(TAG,"Status Code : " + response.code());
                     Log.d(TAG,response.errorBody().toString());
                     Log.d(TAG,call.request().body().toString());
+                    isSignUp[0] = false;
                 }
             }
 
             @Override
             public void onFailure(Call<SignUpItem> call, Throwable t) {
                 Log.d(TAG,"Fail msg : " + t.getMessage());
+                isSignUp[0] = false;
             }
         });
-
-
-
-
-           */
-        ///////////////////////////////////////
-
-        return true;
+        ////
+        return isSignUp[0];
     }
 
-    private void initMyAPI(String baseUrl){
+    /*
+    private void initSignUpAPI(String baseUrl){
 
-        Log.d(TAG,"initMyAPI : " + baseUrl);
+        Log.d(TAG,"initSignUpAPI : " + baseUrl);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        mMyAPI = retrofit.create(MyAPI.class);
+        myAPI = retrofit.create(MyAPI.class);
     }
+
+     */
 }

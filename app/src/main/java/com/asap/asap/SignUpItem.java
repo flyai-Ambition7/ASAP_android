@@ -2,7 +2,8 @@ package com.asap.asap;
 
 // 회원가입 관련
 public class SignUpItem {
-
+    // 회원가입 username, password, email, mobile
+    private String username, password, email, mobile;
     public String getUsername() {
         return username;
     }
@@ -34,11 +35,5 @@ public class SignUpItem {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-
-    // 회원가입 username, password, email, mobile
-    private String username, password, email, mobile;
-
-
-
 
 }

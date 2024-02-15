@@ -21,6 +21,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,13 +34,15 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton, signUpButton;
 
 
-
+    static public final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
+    static public MyAPI myAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initSignUpAPI(BASE_URL);
         // 접근 권한 요청, 권한을 부여할 권한 지정하는 부분
         // 이미지들 가져올 것이라 외부 저장소 읽는 것 권한 받기
         String[] permissions = {
@@ -177,6 +181,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void initSignUpAPI(String baseUrl){
 
+        Log.d(TAG,"initSignUpAPI : " + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        myAPI = retrofit.create(MyAPI.class);
+    }
 
 }

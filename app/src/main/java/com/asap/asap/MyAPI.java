@@ -18,6 +18,14 @@ public interface MyAPI {
 
     @GET("/posts/{pk}/")
     Call<PostItem> get_post_pk(@Path("pk") int pk);
+    //
+    @POST("/asap/signup/")
+    Call<SignUpItem> post_signup(@Body SignUpItem post);
+    @GET("/asap/signup/")
+    Call<List<SignUpItem>> get_signup();
+
+    @GET("/asap/signup/{pk}/")
+    Call<SignUpItem> get_signup_pk(@Path("pk") int pk);
 
 
 }
