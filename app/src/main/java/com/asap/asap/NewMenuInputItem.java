@@ -12,16 +12,18 @@ public class NewMenuInputItem {
     // 별도 - 신메뉴일 때
     String product_name,description, business_hours, location, contact;
 
-    String imageData; // Base64로 변환된 이미지 데이터
 
 
-    public String getImageData() {
-        return imageData;
+    String image; // Base64로 변환된 이미지 데이터
+
+    public String getImage() {
+        return image;
     }
 
-    public void setImageData(String imageData) {
-        this.imageData = imageData;
+    public void setImage(String image) {
+        this.image = image;
     }
+
     public String getStore_name() {
         return store_name;
     }

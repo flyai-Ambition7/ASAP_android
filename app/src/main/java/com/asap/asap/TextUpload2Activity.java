@@ -5,6 +5,9 @@ import static android.content.ContentValues.TAG;
 import static com.asap.asap.MainActivity.myAPI;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +16,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +32,9 @@ public class TextUpload2Activity extends AppCompatActivity {
 
     // 입력 내용
     String productName,  price,  info, time, where, storePhone;
+    String imageUriString;
+    Uri imageUri;
+    Bitmap bitmap;
     String base64Image;
 
     @Override
@@ -33,9 +42,10 @@ public class TextUpload2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_upload2);
 
-        // Intent에서 전달된 Base64 이미지 문자열 가져오기
-        base64Image = getIntent().getStringExtra("base64Image");
-        Log.d("base64Image 최종 전달 완료", base64Image);
+        // Intent에서 전달된 이미지 URI 가져오기
+        imageUriString = getIntent().getStringExtra("imageUri");
+        imageUri = Uri.parse(imageUriString);
+
         
         // 객체 생성
         leftButton = findViewById(R.id.textUpload2LeftImageButton);
@@ -61,6 +71,15 @@ public class TextUpload2Activity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // Uri를 Bitmap으로 변환
+                bitmap = getBitmapFromUri(imageUri);
+
+                // Bitmap을 Base64로 변환
+                base64Image = ImageUtils.bitmapToBase64(bitmap);
+                Log.d("최종?!", base64Image);
+
+                Log.d("이미지 변환된 것 확인 ------", base64Image);
                 // EditText에서 값을 가져옴
                 productName = productNameEditText.getText().toString().trim();
                 price = priceEditText.getText().toString().trim();
@@ -93,7 +112,7 @@ public class TextUpload2Activity extends AppCompatActivity {
             Log.d(TAG,"POST");
             NewMenuInputItem item = new NewMenuInputItem();
             //item.setImage("테스트 이미지"); // 이후 추가
-            item.setImageData(base64Image); // base64로 변형한 이미지 전달
+            item.setImage(base64Image); // base64로 변형한 이미지 전달
 
             
             item.setStore_name("스토어 이름");
@@ -132,4 +151,15 @@ public class TextUpload2Activity extends AppCompatActivity {
             ////
             return isNewMenuInput[0];
         }
+
+    private Bitmap getBitmapFromUri(Uri uri) {
+        try {
+            // Uri에서 InputStream을 통해 Bitmap으로 변환
+            InputStream imageStream = getContentResolver().openInputStream(uri);
+            return BitmapFactory.decodeStream(imageStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

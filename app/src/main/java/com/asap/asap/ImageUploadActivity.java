@@ -25,8 +25,7 @@ public class ImageUploadActivity extends AppCompatActivity {
     boolean isImageChanged = false;
     // 이미지 변경 관련
     Uri selectedImageUri;
-    Bitmap bitmap;
-    String base64Image;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +54,8 @@ public class ImageUploadActivity extends AppCompatActivity {
                 if (isImageChanged) {
                     Intent intent = new Intent(ImageUploadActivity.this, TextUpload1Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    // 이미지 비트맵 함께 넘기기
-                    intent.putExtra("base64Image", base64Image);
+                    // 이미지 비트맵이나 base64로 보내면 intent 사이즈 제한에 걸림 uri로 보내기
+                    intent.putExtra("imageUri", selectedImageUri.toString());
                     startActivity(intent);
                 } else {
                     Toast.makeText(ImageUploadActivity.this, "이미지를 넣어주세요.", Toast.LENGTH_SHORT).show();
@@ -93,26 +92,11 @@ public class ImageUploadActivity extends AppCompatActivity {
             // 이후 저 uri를 어떻게 서버로 보낼지도 고려해서 짜두기
             //
 
-            // Uri를 Bitmap으로 변환
-            bitmap = getBitmapFromUri(selectedImageUri);
 
-            // Bitmap을 Base64로 변환
-            base64Image = ImageUtils.bitmapToBase64(bitmap);
-
-            Log.d("이미지 변환된 것 확인 ------", base64Image);
         }
     }
 
-    private Bitmap getBitmapFromUri(Uri uri) {
-        try {
-            // Uri에서 InputStream을 통해 Bitmap으로 변환
-            InputStream imageStream = getContentResolver().openInputStream(uri);
-            return BitmapFactory.decodeStream(imageStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 
 
 

@@ -19,16 +19,15 @@ public class TextUpload1Activity extends AppCompatActivity {
     DialogResultForm dialogResultForm;
     // 입력 받는 것
     String storeName, theme, purpose, resultForm;
-    String base64Image;
+    String imageUriString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_text_upload1);
         
-        // 이전 ImageUploadActivity에서 
-        // Intent에서 전달된 Base64 이미지 문자열 가져오기
-        base64Image = getIntent().getStringExtra("base64Image");
+        // 이전 ImageUploadActivity에서 uri 받아오기
+        imageUriString = getIntent().getStringExtra("imageUri");
 
         // 객체 가져오기
         leftButton = findViewById(R.id.textUpload1LeftImageButton);
@@ -66,7 +65,7 @@ public class TextUpload1Activity extends AppCompatActivity {
                     // 다음 액티비티로 이동
                     Intent intent = new Intent(TextUpload1Activity.this, TextUpload2Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    intent.putExtra("base64Image", base64Image); // 다시 이미지 전달
+                    intent.putExtra("imageUri", imageUriString); // 받은 uri string 값 보내기
                     startActivity(intent);
                 } else {
                     // 빈 값이 있으면 Toast 메시지 표시
