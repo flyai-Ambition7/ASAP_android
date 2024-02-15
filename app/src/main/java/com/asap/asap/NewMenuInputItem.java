@@ -1,8 +1,46 @@
 package com.asap.asap;
 
-public class TextUpload2Item {
-    // 입력 페이지 1 신메뉴 홍보 : 상품명, 가격, 세부설명, 영업시간, 위치, 전화번호
-    private  String productName,  price,  info, time, where, storePhone;
+public class NewMenuInputItem {
+    // 공통
+    // image
+
+    // TextUpload1Activiy에서 받는 것들
+    String storeName, theme, purpose, resultForm;
+
+    // 별도 - 신메뉴일 때
+    String productName,  price,  info, time, where, storePhone;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getResultForm() {
+        return resultForm;
+    }
+
+    public void setResultForm(String resultForm) {
+        this.resultForm = resultForm;
+    }
 
     public String getProductName() {
         return productName;
@@ -51,4 +89,7 @@ public class TextUpload2Item {
     public void setStorePhone(String storePhone) {
         this.storePhone = storePhone;
     }
+
+
+
 }

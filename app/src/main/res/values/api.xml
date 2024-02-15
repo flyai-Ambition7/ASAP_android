@@ -4,10 +4,14 @@
     <string name="posts">/posts/</string>
     <string name="signup">/asap/signup/</string>
     <string name="login">/asap/login/</string>
-    <string name="new_menu_input">/asap/main/new_menu_input/</string>
-    <string name="event_input">/asap/main/event_input/</string>
+
+
+
+    <string name="new_menu_input">/new_menu_input/</string>
+  <string name="event_input">/asap/main/event_input/</string>
     <string name="opening_input">/asap/main/opening_input/</string>
-    <string name="reconfirm">/asap/main/reconfirm/</string>
     <string name="image_result">/asap/main/image_result/</string>
+
+    <string name="reconfirm">/asap/main/reconfirm/</string>
     <string name="data_list">/asap/main/data_list/</string>
 </resources>

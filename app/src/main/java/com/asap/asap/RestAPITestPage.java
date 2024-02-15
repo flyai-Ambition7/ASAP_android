@@ -25,7 +25,7 @@ public class RestAPITestPage extends AppCompatActivity {
     String title, text, put, lae;
     TextView getT;
     /////////////////
-    private final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
+    private final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
     private MyAPI mMyAPI;
     /////////////////
 
@@ -59,11 +59,29 @@ public class RestAPITestPage extends AppCompatActivity {
                 ///////////////////////////////////////
                 Log.d(TAG,"POST");
                 PostItem item = new PostItem();
+
                 item.setTitle(title);
                 item.setText(text);
                 item.setPut(put);
                 item.setLae(lae);
+
+                item.setImage("이미지 테스트");
+                item.setStore_name("패기7조");
+                item.setPurpose("테스트용");
+                item.setResult_type("결과 형태");
+                item.setTheme("차분한");
+
+                item.setProduct_name("안녕");
+                item.setPrice(3000);
+                item.setDescription("행복하다");
+                item.setBusiness_hours("24시");
+                item.setLocation("한국");
+                item.setContact("010-8888-8888");
+
+
                 Call<PostItem> postCall = mMyAPI.post_posts(item);
+                Call<PostItem> postCallnew = mMyAPI.post_new_menu_input2(item);
+
                 postCall.enqueue(new Callback<PostItem>() {
                     @Override
                     public void onResponse(Call<PostItem> call, Response<PostItem> response) {
@@ -82,6 +100,23 @@ public class RestAPITestPage extends AppCompatActivity {
                     }
                 });
                 ///////////////////////////////////////
+                postCallnew.enqueue(new Callback<PostItem>() {
+                    @Override
+                    public void onResponse(Call<PostItem> call, Response<PostItem> response) {
+                        if(response.isSuccessful()){
+                            Log.d(TAG,"등록 완료");
+                        }else {
+                            Log.d(TAG,"Status Code : " + response.code());
+                            Log.d(TAG,response.errorBody().toString());
+                            Log.d(TAG,call.request().body().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PostItem> call, Throwable t) {
+                        Log.d(TAG,"Fail msg : " + t.getMessage());
+                    }
+                });
             }
         });
 
@@ -91,6 +126,8 @@ public class RestAPITestPage extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG,"GET");
                 Call<List<PostItem>> getCall = mMyAPI.get_posts();
+                Call<List<PostItem>> getCallnew  = mMyAPI.get_new_menu_input2();
+
                 getCall.enqueue(new Callback<List<PostItem>>() {
                     @Override
                     public void onResponse(Call<List<PostItem>> call, Response<List<PostItem>> response) {
@@ -99,7 +136,9 @@ public class RestAPITestPage extends AppCompatActivity {
                             String result ="";
                             PostItem item = mList.get(mList.size() - 1);
                             result += "title : " + item.getTitle() + " text: " + item.getText() +
-                                    " put: "+ item.getPut() + " lae: " + item.getLae() + "\n";
+                                    " put: "+ item.getPut() + " lae: " + item.getLae() +
+                                    " 가게 이름: " + item.getStore_name() + " 번호: " + item.getContact() +
+                                    " 가격: " + item.getPrice() +"\n";
                             /*
                             for( PostItem item : mList){
                                 result += "title : " + item.getTitle() + " text: " + item.getText() +
@@ -116,6 +155,34 @@ public class RestAPITestPage extends AppCompatActivity {
                         Log.d(TAG,"Fail msg : " + t.getMessage());
                     }
                 });
+                getCallnew.enqueue(new Callback<List<PostItem>>() {
+                    @Override
+                    public void onResponse(Call<List<PostItem>> call, Response<List<PostItem>> response) {
+                        if( response.isSuccessful()){
+                            List<PostItem> mList = response.body();
+                            String result ="";
+                            PostItem item = mList.get(mList.size() - 1);
+                            result += "title : " + item.getTitle() + " text: " + item.getText() +
+                                    " put: "+ item.getPut() + " lae: " + item.getLae() +
+                                    " 가게 이름: " + item.getStore_name() + " 번호: " + item.getContact() +
+                                    " 가격: " + item.getPrice() +"\n";
+                            /*
+                            for( PostItem item : mList){
+                                result += "title : " + item.getTitle() + " text: " + item.getText() +
+                                        " put: "+ item.getPut() + " lae: " + item.getLae() + "\n";
+                            }*/
+                            getT.setText(result);
+                        }else {
+                            Log.d(TAG,"Status Code : " + response.code());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<PostItem>> call, Throwable t) {
+                        Log.d(TAG,"Fail msg : " + t.getMessage());
+                    }
+                });
+                ////
             }
         });
 
