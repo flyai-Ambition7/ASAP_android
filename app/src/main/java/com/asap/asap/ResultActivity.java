@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,7 +19,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,10 +58,28 @@ public class ResultActivity extends AppCompatActivity {
         resultImageView = findViewById(R.id.resultImageView);
         homeButton = findViewById(R.id.homeButton);
         saveButton = findViewById(R.id.saveButton);
+//https://lakue.tistory.com/10
 
-        /////////////
+        Glide.with(this).load(imageUrl)
+                .placeholder(R.drawable.result_page_default_image)
+                .error(R.drawable.onboarding_image_01)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        Log.e(TAG, "Image load failed", e);
+                        return false; // Don't prevent default behavior
+                    }
 
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        Log.d(TAG, "Image load successful");
+                        return false; // Don't prevent default behavior
+                    }
 
+                })
+                .into(resultImageView);
+
+/*
         Thread Thread = new Thread() {
 
             @Override
@@ -114,8 +140,8 @@ public class ResultActivity extends AppCompatActivity {
         }
 
 
-
-        //////////
+*/
+  ///
 
         // 버튼 동작
         homeButton.setOnClickListener(new View.OnClickListener() {

@@ -1,7 +1,7 @@
 package com.asap.asap;
 
 import static android.content.ContentValues.TAG;
-import static com.asap.asap.MainActivity.myAPI;
+//import static com.asap.asap.MainActivity.myAPI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,14 +14,20 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoadingActivity extends AppCompatActivity {
     String imageUrl;
+    public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
+    public MyAPI myAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+        /*
 
+        initAPI(BASE_URL);
         Log.d(TAG,"GET");
         Call<List<ImageResultItem>> getCall = myAPI.get_image_result();
         getCall.enqueue(new Callback<List<ImageResultItem>>() {
@@ -58,7 +64,17 @@ public class LoadingActivity extends AppCompatActivity {
                 Log.d(TAG,"Fail msg : " + t.getMessage());
             }
         });
+*/
 
+    }
+    public void initAPI(String baseUrl){
 
+        Log.d(TAG,"initSignUpAPI : " + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        myAPI = retrofit.create(MyAPI.class);
     }
 }

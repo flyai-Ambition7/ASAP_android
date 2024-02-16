@@ -138,9 +138,9 @@ public class TextUpload2Activity extends AppCompatActivity {
                         Log.d(TAG,"등록 완료");
                         isNewMenuInput[0] = true;
                         //Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
-                        Intent intent = new Intent(TextUpload2Activity.this, LoadingActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
+                       // Intent intent = new Intent(TextUpload2Activity.this, LoadingActivity.class);
+                    //    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                     //   startActivity(intent);
 
                     }else {
                         Log.d(TAG,"Status Code : " + response.code());
