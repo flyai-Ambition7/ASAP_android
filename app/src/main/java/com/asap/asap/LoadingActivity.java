@@ -25,7 +25,7 @@ public class LoadingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
-        /*
+
 
         initAPI(BASE_URL);
         Log.d(TAG,"GET");
@@ -41,10 +41,10 @@ public class LoadingActivity extends AppCompatActivity {
                         // 목록이 비어있지 않으면 마지막 아이템을 사용
                         ImageResultItem latestImage = mList.get(mList.size() - 1);
                         // latestImage를 사용하여 필요한 로직 수행
-                        Log.d("받아온 데이터", latestImage.getImage());
+                        Log.d("받아온 데이터", latestImage.getImage_data());
                         // 예시로 로그에 출력하는 부분
-                        Log.d(TAG, "Latest Image URL: " + latestImage.getImage().toString());
-                        imageUrl = latestImage.getImage();
+                        Log.d(TAG, "Latest Image URL: " + latestImage.getImage_data().toString());
+                        imageUrl = latestImage.getImage_data();
                         Log.d("url이다", imageUrl);
                         Intent intent = new Intent(LoadingActivity.this, ResultActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -64,7 +64,7 @@ public class LoadingActivity extends AppCompatActivity {
                 Log.d(TAG,"Fail msg : " + t.getMessage());
             }
         });
-*/
+
 
     }
     public void initAPI(String baseUrl){
