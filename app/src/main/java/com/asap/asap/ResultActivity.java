@@ -29,6 +29,7 @@ public class ResultActivity extends AppCompatActivity {
     ImageView resultImageView;
     Button homeButton, saveButton;
     String image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,47 +99,48 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
-    public void showResultImage(){
-        Log.d(TAG,"GET");
+    public void showResultImage() {
+        Log.d(TAG, "GET");
         Call<List<NewMenuInputItem>> getCall = myAPI.get_new_menu_input();
         getCall.enqueue(new Callback<List<NewMenuInputItem>>() {
             @Override
             public void onResponse(Call<List<NewMenuInputItem>> call, Response<List<NewMenuInputItem>> response) {
-                if( response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<NewMenuInputItem> mList = response.body();
                     NewMenuInputItem item = mList.get(mList.size() - 1); // 마지막 항목 가져오기
-                    image = item.getImage();
-                    // Base64 문자열을 디코딩하여 이미지뷰에 설정
-                    displayImageInImageView(image);
-                }else {
-                    Log.d(TAG,"Status Code : " + response.code());
+                    String base64Image = item.getImage();
+                    // Base64 문자열을 디코딩하여 Bitmap으로 변환
+                    Bitmap decodedBitmap = decodeBase64ToBitmap(base64Image);
+                    // Bitmap을 ImageView에 설정
+                    resultImageView.setImageBitmap(decodedBitmap);
+                } else {
+                    Log.d(TAG, "Status Code : " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<NewMenuInputItem>> call, Throwable t) {
-                Log.d(TAG,"Fail msg : " + t.getMessage());
+                Log.d(TAG, "Fail msg : " + t.getMessage());
             }
         });
 
     }
 
-    private void displayImageInImageView(String base64Image) {
+    private Bitmap decodeBase64ToBitmap(String base64Image) {
         try {
             // Base64 문자열을 디코딩하여 byte 배열로 변환
             byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
 
             // byte 배열을 Bitmap으로 변환
             Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-
-            // 이미지뷰에 Bitmap 설정
             resultImageView.setImageBitmap(decodedBitmap);
+            return decodedBitmap;
         } catch (IllegalArgumentException e) {
             // 잘못된 Base64 문자열이 들어왔을 경우에 대한 예외처리
-            Log.d("잘못된 Base64 문자열이 들어옴", "이상한거 들어옴!!!!!!!");
+            Log.d(TAG, "잘못된 Base64 문자열이 들어옴");
             e.printStackTrace();
-            // 또는 적절한 에러 메시지를 사용하여 처리
+            return null;
         }
-    }
 
+    }
 }
