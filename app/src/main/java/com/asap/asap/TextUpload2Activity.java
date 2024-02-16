@@ -31,7 +31,8 @@ public class TextUpload2Activity extends AppCompatActivity {
     EditText productNameEditText, priceEditText, infoEditText, timeEditText, whereEditText, storePhoneEditText;
 
     // 입력 내용
-    String productName, price, info, time, where, storePhone;
+    String productName, price, info; // 필수
+    String time, where, storePhone; // 선택
     ////
 
     /////////
@@ -103,14 +104,10 @@ public class TextUpload2Activity extends AppCompatActivity {
 
                 // 필수 입력란이 채워져 있는지 확인
                 if (!productName.isEmpty() && !price.isEmpty() && !info.isEmpty()) {
+                    if (time.isEmpty()){ time = "미입력";}
+                    if (where.isEmpty()){where = "미입력";}
+                    if (storePhone.isEmpty()){storePhone= "미입력";}
                     restAPI();
-                /*
-                if (restAPI()){
-                        Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        startActivity(intent);
-                    }*/
-
 
                 } else {
                     // 빈 값이 있으면 Toast 메시지 표시
