@@ -1,13 +1,13 @@
 package com.asap.asap;
 
 public class ImageResultItem {
-    String image; // Base64로 변환된 이미지 데이터
-    public String getImage() {
-        return image;
+    String image_data; // 생성된 이미지 url
+
+    public String getImage_data() {
+        return image_data;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImage_data(String image_data) {
+        this.image_data = image_data;
     }
-
 }
