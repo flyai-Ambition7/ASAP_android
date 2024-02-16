@@ -2,10 +2,12 @@ package com.asap.asap;
 
 import static android.content.ContentValues.TAG;
 import static com.asap.asap.MainActivity.myAPI;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,31 +22,99 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 public class ResultActivity extends AppCompatActivity {
     ImageView resultImageView;
     Button homeButton, saveButton;
-    String image;
+    String imageUrl;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
+        imageUrl = getIntent().getStringExtra("imageUrl");
+        Log.d("받은url이다", imageUrl);
         resultImageView = findViewById(R.id.resultImageView);
         homeButton = findViewById(R.id.homeButton);
         saveButton = findViewById(R.id.saveButton);
 
         /////////////
 
-        // rest api로 이미지 받아오는 부분 필요
-        // 받아올 동안 로딩 화면 띄우던 뭔 작업 필요
-        // 대기중 이미지 띄워뒀다가 나중에 서버에서 왔다고 하면 그때 view 업데이트 좋을듯함
-        showResultImage();
+
+        Thread Thread = new Thread() {
+
+            @Override
+
+            public void run(){
+
+                try{
+                    if (!imageUrl.isEmpty()){
+                        //URL url = new URL("https://7818-203-236-8-208.ngrok-free.app/media/input/8c42e56d-f75.jpg");
+                        URL url = new URL(imageUrl);
+                        Log.d("표시 할 url", imageUrl);
+                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+
+                        //     HttpURLConnection의 인스턴스가 될 수 있으므로 캐스팅해서 사용한다
+                        //     conn.setDoInput(true); //Server 통신에서 입력 가능한 상태로 만듦
+                        conn.connect();
+
+                        InputStream is = conn.getInputStream();
+                        //inputStream 값 가져오기
+
+                        bitmap = BitmapFactory.decodeStream(is);
+                        // Bitmap으로 반환
+
+                    }
+
+
+
+
+                } catch (IOException e){
+
+                    e.printStackTrace();
+                    Log.d("첫번째 thread 오류", "--------------");
+
+                }
+
+            }
+
+        };
+
+        Thread.start();
+
+
+
+        try{
+
+            //join() 호출하여 별도의 작업 Thread가 종료될 때까지 메인 Thread가 기다림
+            Thread.join();
+            if (bitmap!=null){resultImageView.setImageBitmap(bitmap);}else{
+                Log.d("비트맵 없다", "--------------");
+            }
+
+            Log.d("조인", "--------------");
+        }catch (InterruptedException e){
+
+            e.printStackTrace();
+            Log.d("조인 실패", "--------------");
+
+        }
+
+
+
         //////////
 
         // 버튼 동작
@@ -67,7 +137,7 @@ public class ResultActivity extends AppCompatActivity {
                 //Toast.makeText(ResultActivity.this, "저장 버튼 클릭", Toast.LENGTH_SHORT).show();
             }
         });
-
+        setContentView(R.layout.activity_result);
     }
 
     private void saveImageToGallery() {
@@ -143,4 +213,6 @@ public class ResultActivity extends AppCompatActivity {
         }
 
     }
+
+
 }

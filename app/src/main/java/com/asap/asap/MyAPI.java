@@ -72,15 +72,15 @@ public interface MyAPI {
     //
 
     // 최종 결과물 API : 홍보물 출력 image_result
-    /*
-    @POST("/image_result/")
+
+    @POST("/asap/image_result/")
     Call<ImageResultItem> post_image_result(@Body ImageResultItem post);
-    @GET("/image_result/")
+    @GET("/asap/image_result/")
     Call<List<ImageResultItem>> get_image_result();
 
-    @GET("/image_result/")
+    @GET("/asap/image_result/{pk}/")
     Call<ImageResultItem> get_image_result(@Path("pk") int pk);
-    */
+
 
 
 }
