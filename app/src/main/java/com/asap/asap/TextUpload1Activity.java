@@ -66,6 +66,12 @@ public class TextUpload1Activity extends AppCompatActivity {
                     Intent intent = new Intent(TextUpload1Activity.this, TextUpload2Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     intent.putExtra("imageUri", imageUriString);
+                    // 나머지 텍스트 항목도 보내기
+                    intent.putExtra("storeName", storeName);
+                    intent.putExtra("theme", theme);
+                    intent.putExtra("purpose", purpose);
+                    intent.putExtra("resultForm", resultForm);
+                    //
                     startActivity(intent);
                 } else {
                     // 빈 값이 있으면 Toast 메시지 표시

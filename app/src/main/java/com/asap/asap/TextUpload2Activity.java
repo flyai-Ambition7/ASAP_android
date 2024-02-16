@@ -31,13 +31,20 @@ public class TextUpload2Activity extends AppCompatActivity {
     EditText productNameEditText, priceEditText, infoEditText, timeEditText, whereEditText, storePhoneEditText;
 
     // 입력 내용
-    String productName,  price,  info, time, where, storePhone;
+    String productName, price, info, time, where, storePhone;
+    ////
+
+    /////////
+    String storeName, theme, purpose, resultForm;
     String imageUriString;
     Uri imageUri;
     Bitmap bitmap;
     String base64Image;
+
+
     public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
     public MyAPI myAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +53,13 @@ public class TextUpload2Activity extends AppCompatActivity {
         // Intent에서 전달된 이미지 URI 가져오기
         imageUriString = getIntent().getStringExtra("imageUri");
         imageUri = Uri.parse(imageUriString);
+        // 나머지 입력 항목들도 가져오기
+        storeName = getIntent().getStringExtra("storeName");
+        theme = getIntent().getStringExtra("storeName");
+        purpose = getIntent().getStringExtra("purpose");
+        resultForm = getIntent().getStringExtra("resultForm");
 
-        
+
         // 객체 생성
         leftButton = findViewById(R.id.textUpload2LeftImageButton);
         rightButton = findViewById(R.id.textUpload2RightImageButton);
@@ -108,16 +120,17 @@ public class TextUpload2Activity extends AppCompatActivity {
         });
     }
 
-    public boolean restAPI(){
-            // rest api
-            ///////////////////////////////////////
-            final boolean[] isNewMenuInput = {false};
-            Log.d(TAG,"POST");
-            NewMenuInputItem item = new NewMenuInputItem();
-            //item.setImage("테스트 이미지"); // 이후 추가
-            item.setImage(base64Image); // base64로 변형한 이미지 전달
+    public boolean restAPI() {
+        // rest api
+        ///////////////////////////////////////
+        final boolean[] isNewMenuInput = {false};
+        Log.d(TAG, "POST");
+        NewMenuInputItem item = new NewMenuInputItem();
+        //item.setImage("테스트 이미지"); // 이후 추가
+        item.setImage(base64Image); // base64로 변형한 이미지 전달
 
-            
+        // 테스트용
+            /*
             item.setStore_name("스토어 이름");
             item.setPurpose("목적");
             item.setResult_type("결과물 형태");
@@ -128,38 +141,50 @@ public class TextUpload2Activity extends AppCompatActivity {
             item.setBusiness_hours("24시");
             item.setLocation("위치");
             item.setContact("연락처");
+            */
+        item.setStore_name(storeName);
+        item.setPurpose(purpose);
+        item.setResult_type(resultForm);
+        item.setTheme(theme);
+        item.setProduct_name(productName);
+        item.setPrice(Integer.parseInt(price));
+        item.setDescription(info);
+        item.setBusiness_hours(time);
+        item.setLocation(where);
+        item.setContact(storePhone);
+        Log.d("TextUpload2Activity intent 잘 받아옴", storeName + purpose + resultForm+theme+productName+price+info+time+where+storePhone);
 
-            Call<NewMenuInputItem> postCall = myAPI.post_new_menu_input(item);
-            postCall.enqueue(new Callback<NewMenuInputItem>() {
+        Call<NewMenuInputItem> postCall = myAPI.post_new_menu_input(item);
+        postCall.enqueue(new Callback<NewMenuInputItem>() {
 
-                @Override
-                public void onResponse(Call<NewMenuInputItem> call, Response<NewMenuInputItem> response) {
-                    if(response.isSuccessful()){
-                        Log.d(TAG,"등록 완료");
-                        isNewMenuInput[0] = true;
-                        //Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
-                       // Intent intent = new Intent(TextUpload2Activity.this, LoadingActivity.class);
+            @Override
+            public void onResponse(Call<NewMenuInputItem> call, Response<NewMenuInputItem> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "등록 완료");
+                    isNewMenuInput[0] = true;
+                    //Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
+                    // Intent intent = new Intent(TextUpload2Activity.this, LoadingActivity.class);
                     //    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                     //   startActivity(intent);
+                    //   startActivity(intent);
 
-                    }else {
-                        Log.d(TAG,"Status Code : " + response.code());
-                        Log.d(TAG,response.errorBody().toString());
-                        Log.d(TAG,call.request().body().toString());
-                        isNewMenuInput[0] = false;
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<NewMenuInputItem> call, Throwable t) {
-                    Log.d(TAG,"Fail msg : " + t.getMessage());
+                } else {
+                    Log.d(TAG, "Status Code : " + response.code());
+                    Log.d(TAG, response.errorBody().toString());
+                    Log.d(TAG, call.request().body().toString());
                     isNewMenuInput[0] = false;
                 }
-            });
-            ////
-            Log.d("결과 ", String.valueOf(isNewMenuInput[0]));
-            return isNewMenuInput[0];
-        }
+            }
+
+            @Override
+            public void onFailure(Call<NewMenuInputItem> call, Throwable t) {
+                Log.d(TAG, "Fail msg : " + t.getMessage());
+                isNewMenuInput[0] = false;
+            }
+        });
+        ////
+        Log.d("결과 ", String.valueOf(isNewMenuInput[0]));
+        return isNewMenuInput[0];
+    }
 
     private Bitmap getBitmapFromUri(Uri uri) {
         try {
@@ -172,9 +197,9 @@ public class TextUpload2Activity extends AppCompatActivity {
         }
     }
 
-    public void initAPI(String baseUrl){
+    public void initAPI(String baseUrl) {
 
-        Log.d(TAG,"initSignUpAPI : " + baseUrl);
+        Log.d(TAG, "initSignUpAPI : " + baseUrl);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
