@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 // 클릭 시 이후 백과 연결해서 RestAPI 확인 후 인증 과정
                 //Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                //Intent intent = new Intent(MainActivity.this, TextUpload2Activity.class);
+                //Intent intent = new Intent(MainActivity.this, GlideTestActivity.class);
                 // FLAG_ACTIVITY_SINGLE_TOP : 실행하고자 하는 Activity가 존재하면 생성 되신 순서를 가장 위로 올리는 flag
                 // 이것을 사용하여 MainActivity를 OnCreate하지 않고 재사용하기 때문에 초기화가 되지 않음
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

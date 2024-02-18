@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
-
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -27,6 +28,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // jvm 에러 해결
+    kotlinOptions {
+        jvmTarget =  JavaVersion.VERSION_1_8.toString()
+
+    }
 }
 
 // https://github.com/bumptech/glide
@@ -36,6 +42,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.core:core-ktx:+'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -46,9 +53,9 @@ dependencies {
     // get으로 받은 url 이미지 보여주기 위한 용도 4.13.2 => 4.16.0 =>4.10.0
     // 4.10.0에 MyAppGlideModule 추가하고 GlideApp으로 호출해서 [Fix] Failed to find GeneratedAppGlideModule
     implementation 'com.github.bumptech.glide:glide:4.16.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+   // annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
     implementation "com.github.bumptech.glide:okhttp3-integration:4.16.0"
-   // kapt 'com.github.bumptech.glide:compiler:4.13.0'
+    kapt 'com.github.bumptech.glide:compiler:4.16.0'
 
 
     // url 데이터 받아오기 위한 라이브러리
