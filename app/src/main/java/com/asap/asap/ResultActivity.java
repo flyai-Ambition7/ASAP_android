@@ -31,7 +31,11 @@ import com.bumptech.glide.signature.ObjectKey;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,9 +57,11 @@ public class ResultActivity extends AppCompatActivity {
         resultImageView = findViewById(R.id.resultImageView);
         homeButton = findViewById(R.id.homeButton);
         saveButton = findViewById(R.id.saveButton);
+
 //https://lakue.tistory.com/10
         Log.d("Glide 라이브러리 사용 ", "0000000000000000000000000");
-        String testUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fnamu.wiki%2Fw%2F%25EC%25BC%2580%25EB%25A1%259C%25EB%25A1%259CM&psig=AOvVaw3yZYrugV5JxNzmGPHYnlUo&ust=1708318389739000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLC1jYiMtIQDFQAAAAAdAAAAABAD;";
+        String testUrl = "https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg";
+        Log.d("사용할 url", testUrl);
         //String testUrl = "C:\\Users\\11\\Desktop\\강의자료\\alice_image";
         GlideApp.with(this).load(testUrl)
                 .override(100,100)
@@ -67,23 +73,13 @@ public class ResultActivity extends AppCompatActivity {
                 )
                 .error(R.drawable.onboarding_image_01)
                 .fallback(R.drawable.onboarding_image_02)
-                .listener(new RequestListener<Drawable>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                        Log.e(TAG, "Image load failed", e);
-                        return false; // Don't prevent default behavior
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                        Log.d(TAG, "Image load successful");
-                        return false; // Don't prevent default behavior
-                    }
-
-                })
                 .into(resultImageView);
         Log.d("Glide 완료 ", "1111111111111111111111");
-/*
+
+
+        /*
+        Log.d("HttpURLConnection 사용 ", "0000000000000000000000000");
+        imageUrl = "https://i.namu.wiki/i/YhRZX5kAVgZ0cpCjqX4s0AA0dZ-pOMf4Rb5URLmgiaiaP5MxXybfEmVP4eGaX9n0GOfmfusFbvinsRdpJLB8-W6vhi9GlY_FET1hYfmuvWc_FWmVYnP3cc7jGwl50tGRUOH8hWsp23EhwwzdPybubA.webp";
         Thread Thread = new Thread() {
 
             @Override
@@ -143,8 +139,10 @@ public class ResultActivity extends AppCompatActivity {
 
         }
 
+        Log.d("HttpURLConnection 사용 끝 ", "111111111111111");
 
-*/
+         */
+
   ///
 
         // 버튼 동작
