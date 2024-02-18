@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
@@ -30,13 +28,7 @@ import com.bumptech.glide.request.target.Target;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 
 import retrofit2.Call;
@@ -53,16 +45,21 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        imageUrl = getIntent().getStringExtra("imageUrl");
-        Log.d("받은url이다", imageUrl);
+        //imageUrl = getIntent().getStringExtra("imageUrl");
+        //Log.d("받은url이다", imageUrl);
         resultImageView = findViewById(R.id.resultImageView);
         homeButton = findViewById(R.id.homeButton);
         saveButton = findViewById(R.id.saveButton);
 //https://lakue.tistory.com/10
-
-        Glide.with(this).load(imageUrl)
-                .placeholder(R.drawable.result_page_default_image)
+        Log.d("Glide 라이브러리 사용 ", "0000000000000000000000000");
+        String testUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fnamu.wiki%2Fw%2F%25EC%25BC%2580%25EB%25A1%259C%25EB%25A1%259CM&psig=AOvVaw3yZYrugV5JxNzmGPHYnlUo&ust=1708318389739000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLC1jYiMtIQDFQAAAAAdAAAAABAD;";
+        //String testUrl = "C:\\Users\\11\\Desktop\\강의자료\\alice_image";
+        GlideApp.with(this).load(testUrl).override(100,100)
+                //.placeholder(R.drawable.result_page_default_image)
+                .skipMemoryCache(true)  // 추가
                 .error(R.drawable.onboarding_image_01)
+                .fallback(R.drawable.onboarding_image_02)
+
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -78,7 +75,7 @@ public class ResultActivity extends AppCompatActivity {
 
                 })
                 .into(resultImageView);
-
+        Log.d("Glide 완료 ", "1111111111111111111111");
 /*
         Thread Thread = new Thread() {
 
