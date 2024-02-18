@@ -22,9 +22,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.signature.ObjectKey;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -54,12 +57,16 @@ public class ResultActivity extends AppCompatActivity {
         Log.d("Glide 라이브러리 사용 ", "0000000000000000000000000");
         String testUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fnamu.wiki%2Fw%2F%25EC%25BC%2580%25EB%25A1%259C%25EB%25A1%259CM&psig=AOvVaw3yZYrugV5JxNzmGPHYnlUo&ust=1708318389739000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLC1jYiMtIQDFQAAAAAdAAAAABAD;";
         //String testUrl = "C:\\Users\\11\\Desktop\\강의자료\\alice_image";
-        GlideApp.with(this).load(testUrl).override(100,100)
+        GlideApp.with(this).load(testUrl)
+                .override(100,100)
                 //.placeholder(R.drawable.result_page_default_image)
-                .skipMemoryCache(true)  // 추가
+                .apply(new RequestOptions()
+                        .signature(new ObjectKey("signature string"))
+                        .skipMemoryCache(true)  // 추가
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                )
                 .error(R.drawable.onboarding_image_01)
                 .fallback(R.drawable.onboarding_image_02)
-
                 .listener(new RequestListener<Drawable>() {
                     @Override
                     public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
