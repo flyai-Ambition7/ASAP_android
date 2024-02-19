@@ -30,6 +30,7 @@ public class MultiResultImageActivity extends AppCompatActivity {
     private Button homeButton;
     private Button saveButton;
     private ArrayList<String> resultImageUrlList = new ArrayList<>();
+    private ArrayList<RecyclerViewItem> RecyclerViewItemList = new ArrayList<>();
     //private ArrayList<String> resultImageUrlList;
     private MyRecyclerViewAdapter adapter;
 
@@ -45,14 +46,22 @@ public class MultiResultImageActivity extends AppCompatActivity {
         // 실제 구현시 intent로 resultImageUrlList 받아오기
         //Intent intent = getIntent();
         //resultImageUrlList = (ArrayList<String>) intent.getSerializableExtra("resultImageUrlList");
-
         // intetn로 받아오는 것 말고 임시로 넣어보기
-        for(int i = 0; i<10; i++){
-            resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
+        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
+        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
+        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
+        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
+        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
+        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
+        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
+        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
 
+        // 객체 생성 후 전달
+        for (String resultUrl : resultImageUrlList) {
+            RecyclerViewItemList.add(new RecyclerViewItem(resultUrl, false));
         }
-
-        adapter = new MyRecyclerViewAdapter(this, resultImageUrlList);
+        
+        adapter = new MyRecyclerViewAdapter(this, RecyclerViewItemList);
         resultRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         resultRecyclerView.setAdapter(adapter);
 

@@ -29,12 +29,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
     String TAG = "RecyclerViewAdapter";
 
     //리사이클러뷰에 넣을 데이터 리스트
-    ArrayList<String> dataModels;
+    ArrayList<RecyclerViewItem> dataModels;
 
     Context context;
 
     //생성자를 통하여 데이터 리스트 context를 받음
-    public MyRecyclerViewAdapter(Context context, ArrayList<String> dataModels) {
+    public MyRecyclerViewAdapter(Context context, ArrayList<RecyclerViewItem> dataModels) {
         this.dataModels = dataModels;
         this.context = context;
     }
@@ -68,7 +68,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
 
         //myViewHolder.resultImageView.setImageURI(Uri.parse(dataModels.get(position).toString()));
         // ▲ 이미지 설정
-        GlideApp.with(context).load(Uri.parse(dataModels.get(position).toString()))
+        GlideApp.with(context).load(Uri.parse(dataModels.get(position).getImageUrl()))
                 .placeholder(R.drawable.result_page_default_image)
                 .into(myViewHolder.resultImageView);
 
