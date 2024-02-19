@@ -124,8 +124,8 @@ public class TextUpload2Activity extends AppCompatActivity {
         Log.d(TAG, "POST");
         NewMenuInputItem item = new NewMenuInputItem();
         //item.setImage("테스트 이미지"); // 이후 추가
-        item.setImage(base64Image); // base64로 변형한 이미지 전달
-
+        //item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
+        item.setUser_input_image(base64Image); // 지안 테스트
         // 테스트용
             /*
             item.setStore_name("스토어 이름");
@@ -144,7 +144,8 @@ public class TextUpload2Activity extends AppCompatActivity {
         item.setResult_type(resultForm);
         item.setTheme(theme);
         item.setProduct_name(productName);
-        item.setPrice(Integer.parseInt(price));
+        //item.setPrice(Integer.parseInt(price)); // 민수
+        item.setPrice(price); // 지안
         item.setDescription(info);
         item.setBusiness_hours(time);
         item.setLocation(where);

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,6 +22,11 @@ public class LoadingActivity extends AppCompatActivity {
     String imageUrl;
     public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
     public MyAPI myAPI;
+
+    int  resultImageUrlListCount = 3; // 총 생성 이미지 개수
+    ArrayList<String> resultImageUrlList = new ArrayList<>();
+    // 총 생성된 이미지 url 들어 있는 리스트
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,17 +44,29 @@ public class LoadingActivity extends AppCompatActivity {
                     //첫 번째 아이템을 사용
                     //ImageResultItem latestImage = mList.get(0);
                     if (mList != null && !mList.isEmpty()) {
+                        int listSize = mList.size();
+                        int startIndex = Math.max(listSize - resultImageUrlListCount, 0);
+                        List<ImageResultItem> selectedItems = mList.subList(startIndex, listSize);
+
+                        for (ImageResultItem item : selectedItems) {
+                            Log.d("받아온 데이터", item.getResult_image_url());
+                            resultImageUrlList.add(item.getResult_image_url());
+                        }
+                        /*
                         // 목록이 비어있지 않으면 마지막 아이템을 사용
                         ImageResultItem latestImage = mList.get(mList.size() - 1);
                         // latestImage를 사용하여 필요한 로직 수행
-                        Log.d("받아온 데이터", latestImage.getImage_data());
+                        Log.d("받아온 데이터", latestImage.getResult_image_url());
                         // 예시로 로그에 출력하는 부분
-                        Log.d(TAG, "Latest Image URL: " + latestImage.getImage_data().toString());
-                        imageUrl = latestImage.getImage_data();
+                        Log.d(TAG, "Latest Image URL: " + latestImage.getResult_image_url().toString());
+                        imageUrl = latestImage.getResult_image_url();
                         Log.d("url이다", imageUrl);
+                        */
+
                         Intent intent = new Intent(LoadingActivity.this, ResultActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                        intent.putExtra("imageUrl", imageUrl);
+                        //intent.putExtra("imageUrl", imageUrl);
+                        intent.putExtra("resultImageUrlList", resultImageUrlList);
                         startActivity(intent);
 
                     } else {

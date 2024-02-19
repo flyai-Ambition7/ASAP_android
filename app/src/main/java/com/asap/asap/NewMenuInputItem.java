@@ -3,8 +3,9 @@ package com.asap.asap;
 public class NewMenuInputItem {
 
 
-    // 공통
 
+    //String image; // Base64로 변환된 이미지 데이터
+    String user_input_image;
 
     // TextUpload1Activiy에서 받는 것들
     String store_name,purpose, result_type, theme;
@@ -13,15 +14,25 @@ public class NewMenuInputItem {
     String product_name,description, business_hours, location, contact;
 
 
+    //int price; // 민수 테스트
+    String price; // 지안 테스트
 
-    String image; // Base64로 변환된 이미지 데이터
-
+/*
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
+    }
+*/
+
+    public String getUser_input_image() {
+        return user_input_image;
+    }
+
+    public void setUser_input_image(String user_input_image) {
+        this.user_input_image = user_input_image;
     }
 
     public String getStore_name() {
@@ -96,6 +107,7 @@ public class NewMenuInputItem {
         this.contact = contact;
     }
 
+    /*
     public int getPrice() {
         return price;
     }
@@ -103,8 +115,13 @@ public class NewMenuInputItem {
     public void setPrice(int price) {
         this.price = price;
     }
+*/
+    public String getPrice() {
+        return price;
+    }
 
-    int price;
-
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
 }

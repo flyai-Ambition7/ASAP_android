@@ -18,6 +18,9 @@
         android:theme="@style/Theme.ASAP"
         tools:targetApi="31">
         <activity
+            android:name=".MultiResultImageActivity"
+            android:exported="false" />
+        <activity
             android:name=".GlideTestActivity"
             android:exported="false" />
         <activity

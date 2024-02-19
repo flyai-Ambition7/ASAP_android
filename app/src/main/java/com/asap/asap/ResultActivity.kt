@@ -183,7 +183,8 @@ class ResultActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val mList = response.body()!!
                     val item = mList[mList.size - 1] // 마지막 항목 가져오기
-                    val base64Image = item.getImage()
+                    //val base64Image = item.getImage()
+                    val base64Image = item.getUser_input_image()
                     // Base64 문자열을 디코딩하여 Bitmap으로 변환
                     val decodedBitmap = decodeBase64ToBitmap(base64Image)
                     // Bitmap을 ImageView에 설정

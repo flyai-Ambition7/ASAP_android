@@ -41,24 +41,30 @@ public interface MyAPI {
 
 
     // 회원가입 API
-    @POST("/asap/signup/")
+    // /asap/signup/ => /users/signup/
+    @POST("/users/signup/")
     Call<SignUpItem> post_signup(@Body SignUpItem post);
-    @GET("/asap/signup/")
+    @GET("/users/signup/")
     Call<List<SignUpItem>> get_signup();
 
-   // @GET("/asap/signup/{pk}/")
+   // @GET("/users/signup/{pk}/")
    // Call<SignUpItem> get_signup_pk(@Path("pk") int pk);
 
     // 로그인 API
-    @POST("/asap/login/")
+    // /asap/login/ => /users/login/
+    @POST("/users/login/")
     Call<LoginItem> post_login(@Body LoginItem post);
-    @GET("/asap/login/")
+    @GET("/users/login/")
     Call<List<LoginItem>> get_login();
 
-    @GET("/asap/login/{pk}/")
+    @GET("/users/login/{pk}/")
     Call<LoginItem> get_login_pk(@Path("pk") int pk);
 
+    // 로그아웃 api
+    // /users/logout/
+
     // 신메뉴 API : 신메뉴 데이터 입력 new_menu_input
+    // /asap/new_menu_input/ => /asap/new_menu_input/
     @POST("/asap/new_menu_input/")
     Call<NewMenuInputItem> post_new_menu_input(@Body NewMenuInputItem post);
     @GET("/asap/new_menu_input/")
@@ -72,7 +78,6 @@ public interface MyAPI {
     //
 
     // 최종 결과물 API : 홍보물 출력 image_result
-
     @POST("/asap/image_result/")
     Call<ImageResultItem> post_image_result(@Body ImageResultItem post);
     @GET("/asap/image_result/")
