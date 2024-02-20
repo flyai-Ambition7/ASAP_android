@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class TextUpload1Activity extends AppCompatActivity {
     ImageButton leftButton, rightButton;
-    EditText storeNameEditText,themeEditText;
-    public static TextView purposeSelectTextView, resultFormSelectTextView;
-    public static String selectedPurposeText, selectedResultFormText;
+    EditText storeNameEditText;
+    public static TextView purposeSelectTextView, resultFormSelectTextView, themeSelectTextView;
+    public static String selectedPurposeText, selectedResultFormText, selectedThemeText;
     DialogPurpose dialogPurpose;
     DialogResultForm dialogResultForm;
+    DialogTheme dialogTheme;
+
     // 입력 받는 것
     String storeName, theme, purpose, resultForm;
     String imageUriString;
@@ -33,9 +35,11 @@ public class TextUpload1Activity extends AppCompatActivity {
         leftButton = findViewById(R.id.textUpload1LeftImageButton);
         rightButton = findViewById(R.id.textUpload1RightImageButton);
         storeNameEditText = findViewById(R.id.storeNameEditText);
-        themeEditText = findViewById(R.id.themeEditText);
+        //themeEditText = findViewById(R.id.themeEditText);
         purposeSelectTextView = findViewById(R.id.purposeSelectTextView);
         resultFormSelectTextView = findViewById(R.id.resultFormSelectTextView);
+        themeSelectTextView = findViewById(R.id.themeSelectTextView);
+
 
         // 버튼 이동 처리
         leftButton.setOnClickListener(new View.OnClickListener() {
@@ -52,9 +56,10 @@ public class TextUpload1Activity extends AppCompatActivity {
             public void onClick(View v) {
                 // 사용자 입력 데이터 확인
                 storeName = storeNameEditText.getText().toString().trim();
-                theme = themeEditText.getText().toString().trim();
+                theme = themeSelectTextView.getText().toString().trim();
                 purpose = purposeSelectTextView.getText().toString().trim();
                 resultForm = resultFormSelectTextView.getText().toString().trim();
+
 
                 // 모든 입력 비어있지 않은지 확인
                 if (!storeName.isEmpty() && !theme.isEmpty() && !purpose.isEmpty() && !resultForm.isEmpty()) {
@@ -93,6 +98,12 @@ public class TextUpload1Activity extends AppCompatActivity {
                 showDialogResultForm();
             }
         });
+        themeSelectTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogTheme();
+            }
+        });
 
 
 
@@ -109,5 +120,10 @@ public class TextUpload1Activity extends AppCompatActivity {
     public void showDialogResultForm(){
         dialogResultForm = new DialogResultForm(this);
         dialogResultForm.show();
+    }
+
+    public void showDialogTheme(){
+        dialogTheme = new DialogTheme(this);
+        dialogTheme.show();
     }
 }
