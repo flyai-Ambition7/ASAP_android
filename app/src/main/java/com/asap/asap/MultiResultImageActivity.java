@@ -1,13 +1,32 @@
 package com.asap.asap;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class MultiResultImageActivity extends AppCompatActivity {
@@ -64,14 +83,66 @@ public class MultiResultImageActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // saveImageToGallery();
+                try {
+                    for (RecyclerViewItem recyclerViewItem : RecyclerViewItemList) {
+                        if (recyclerViewItem.isSelected()){
+                            //선택된 애들만 저장하도록 함
+                            saveImageToGallery(recyclerViewItem.getImageUrl());
+                        }
+                    }
+                      Toast.makeText(MultiResultImageActivity.this, "이미지가 갤러리에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                      Toast.makeText(MultiResultImageActivity.this, "이미지 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
     }
+    private void saveImageToGallery(String imageUrl) {
+        GlideApp.with(this)
+                .asBitmap()
+                .load(imageUrl)
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        // Save the Bitmap to the gallery
+                        saveBitmapToGallery(resource);
+                    }
 
-    /*
-    private void saveImageToGallery() {
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        // Do nothing
+                    }
+                });
+    }
+
+    private void saveBitmapToGallery(Bitmap bitmap) {
+        String fileName = "ASAP_Result_" + System.currentTimeMillis() + ".png";
+        File galleryFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), fileName);
+
+        try {
+            OutputStream outputStream = new FileOutputStream(galleryFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            // Insert the image into the MediaStore
+            MediaStore.Images.Media.insertImage(getContentResolver(), galleryFile.getAbsolutePath(), galleryFile.getName(), galleryFile.getName());
+
+          //  Toast.makeText(MultiResultImageActivity.this, "이미지가 갤러리에 저장되었습니다.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+          //  Toast.makeText(MultiResultImageActivity.this, "이미지 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    //////////////////////////////////////////////////////
+
+/*
+    private void saveImageToGallery(RecyclerViewItem recyclerViewItem) {
+
         BitmapDrawable drawable = (BitmapDrawable) resultImageView.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
@@ -97,13 +168,13 @@ public class MultiResultImageActivity extends AppCompatActivity {
         try {
             byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
             Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-            resultImageView.setImageBitmap(decodedBitmap);
+          //  resultImageView.setImageBitmap(decodedBitmap);
             return decodedBitmap;
         } catch (IllegalArgumentException e) {
             Log.d(ContentValues.TAG, "잘못된 Base64 문자열이 들어옴");
             e.printStackTrace();
             return null;
         }
-    }
-     */
+    }*/
+
 }
