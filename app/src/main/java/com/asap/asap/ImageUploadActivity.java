@@ -46,8 +46,6 @@ public class ImageUploadActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     boolean isImageChanged = false;
     // 이미지 변경 관련
-    Uri selectedImageUri;
-    // 이미지 관련
     Uri imageUri;
     // 카메라 관련
     private static final int REQUEST_IMAGE_CAPTURE = 672;
@@ -83,7 +81,7 @@ public class ImageUploadActivity extends AppCompatActivity {
                     Intent intent = new Intent(ImageUploadActivity.this, TextUpload1Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     // 이미지 비트맵이나 base64로 보내면 intent 사이즈 제한에 걸림 uri로 보내기
-                    intent.putExtra("imageUri", selectedImageUri.toString());
+                    intent.putExtra("imageUri",imageUri.toString());
                     startActivity(intent);
                 } else {
                     Toast.makeText(ImageUploadActivity.this, "이미지를 넣어주세요.", Toast.LENGTH_SHORT).show();
@@ -183,6 +181,8 @@ public class ImageUploadActivity extends AppCompatActivity {
                     ((ImageView)findViewById(R.id.imageUploadImageView)).setImageBitmap(rotate(bitmap, exifDegree));
                     saveImageToGallery(rotate(bitmap, exifDegree));
                     isImageChanged = true;
+                    // 카메라로 촬영한 이미지의 URI를 저장
+                    imageUri = Uri.fromFile(new File(imageFilePath));
                 }
         }
     }
