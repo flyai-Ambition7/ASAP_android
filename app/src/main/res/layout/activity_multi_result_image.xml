@@ -35,11 +35,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="2dp"
             android:gravity="center"
-            android:text="결과물"
+            android:text="결과물 시안"
             android:textColor="@color/black"
             android:textSize="20dp" />
+        <TextView
+            android:id="@+id/resultInfoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="*이미지를 클릭하여 크게 보실 수 있습니다\n*선택 후 저장버튼을 눌러주세요"
+            android:textColor="@color/inputText"
+            tools:ignore="TextSizeCheck"
+            android:textSize="12dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/resultRecyclerView"

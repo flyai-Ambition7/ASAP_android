@@ -180,5 +180,6 @@ public class MultiResultImageActivity extends AppCompatActivity {
             return null;
         }
     }*/
-
+//@Override
+//public void onBackPressed() { super.onBackPressed();}
 }
