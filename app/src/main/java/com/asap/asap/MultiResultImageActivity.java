@@ -2,6 +2,7 @@ package com.asap.asap;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -67,6 +68,7 @@ public class MultiResultImageActivity extends AppCompatActivity {
         
         adapter = new MyRecyclerViewAdapter(this, RecyclerViewItemList);
         resultRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        resultRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2,fromDpToPx(16f)));
         resultRecyclerView.setAdapter(adapter);
 
         Log.d("Glide 라이브러리 사용 ", "0000000000000000000000000");
@@ -137,7 +139,9 @@ public class MultiResultImageActivity extends AppCompatActivity {
         }
     }
 
-
+    public static int fromDpToPx(float dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
     //////////////////////////////////////////////////////
 
 /*

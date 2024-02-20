@@ -8,8 +8,8 @@
 
     <CheckBox
         android:id="@+id/resultCheckBox"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:padding="10dp"
@@ -22,6 +22,8 @@
         android:layout_gravity="center"
         android:scaleType="centerInside"
         android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:clipToPadding = "false"
         android:src="@drawable/result_page_default_image" />
 
 

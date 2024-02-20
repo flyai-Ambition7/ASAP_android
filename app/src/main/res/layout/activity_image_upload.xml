@@ -74,6 +74,7 @@
             android:layout_marginTop="30dp"
             android:clickable="true"
             android:contentDescription="uploadImageView"
+            android:adjustViewBounds="true"
             android:src="@drawable/upload_page_default_image" />
 
     </LinearLayout>
@@ -93,6 +94,7 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:paddingHorizontal="2dp"
             android:src="@drawable/shape_circle_orange" />
 

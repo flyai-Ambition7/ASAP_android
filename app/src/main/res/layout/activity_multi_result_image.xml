@@ -42,15 +42,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/resultRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <ImageView
-            android:id="@+id/resultImageView"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/result_page_default_image"
-            />
+            android:clipToPadding = "false"/>
 
     </LinearLayout>
 
