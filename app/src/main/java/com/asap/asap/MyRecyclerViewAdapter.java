@@ -1,13 +1,17 @@
 package com.asap.asap;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -72,16 +76,44 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
                 .placeholder(R.drawable.result_page_default_image)
                 .into(myViewHolder.resultImageView);
 
+        RecyclerViewItem item = dataModels.get(position);
+
+
+        myViewHolder.resultCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                item.setSelected(isChecked); // 아이템 내 상태 체크로 변경
+                // 선택 유무에 따른 배경색
+                if (isChecked){
+                    holder.itemView.setBackgroundColor(Color.parseColor("#FF0000"));
+                }else holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        });
+
         // ▼ 리사이클러 내의 아이템 클릭시 동작하는 부분
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.resultImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(context, position+"번째 아이템 클릭", Toast.LENGTH_SHORT).show();
                 // 인텐트로 넘겨줘야 하는 부분
-                Intent intent = new Intent(myViewHolder.itemView.getContext(), MultiResultImageActivity.class);
-                intent.putExtra("clickPosition", position); // position만 넘겨주면 어떤 영화, 스케줄인지 static 변수에 접근 가능
-                ContextCompat.startActivity(myViewHolder.itemView.getContext(), intent, null);
+              //  Intent intent = new Intent(myViewHolder.itemView.getContext(), MultiResultImageActivity.class);
+              //  intent.putExtra("clickPosition", position); // position만 넘겨주면 어떤 영화, 스케줄인지 static 변수에 접근 가능
+              //  ContextCompat.startActivity(myViewHolder.itemView.getContext(), intent, null);
+                View dialogView = View.inflate(context, R.layout.result_image_dialog, null);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(context);
+                ImageView dialogImageView = dialogView.findViewById(R.id.resultImageDialogView);
+                // 현재 클릭된 애의 url 가져오기
+                String selectedImageUrl = dataModels.get(position).getImageUrl();
 
+                // Glide로 동일하게 그려주기
+                GlideApp.with(context).load(Uri.parse(selectedImageUrl))
+                        .placeholder(R.drawable.result_page_default_image)
+                        .into(dialogImageView);
+                dlg.setTitle("결과 이미지");
+                dlg.setIcon(R.drawable.result_page_default_image);
+                dlg.setView(dialogView);
+                dlg.setNegativeButton("닫기", null);
+                dlg.show();
             }
         });
     }
@@ -89,10 +121,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView resultImageView;
+        CheckBox resultCheckBox;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             resultImageView = itemView.findViewById(R.id.resultImageView);
+            resultCheckBox = itemView.findViewById(R.id.resultCheckBox);
         }
     }
 

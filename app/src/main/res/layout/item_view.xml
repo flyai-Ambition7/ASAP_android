@@ -3,15 +3,26 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:id="@+id/layoutListItem"
-    android:orientation="vertical"
-    android:layout_marginHorizontal="20dp"
+    android:orientation="horizontal"
     android:layout_gravity="center">
+
+    <CheckBox
+        android:id="@+id/resultCheckBox"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        />
 
     <ImageView
         android:id="@+id/resultImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/result_page_default_image"/>
+        android:layout_gravity="center"
+        android:scaleType="centerInside"
+        android:layout_weight="1"
+        android:src="@drawable/result_page_default_image" />
 
 
 </LinearLayout>
