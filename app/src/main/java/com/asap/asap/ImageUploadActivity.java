@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +18,26 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+/* 카메라 촬영 관련 */
+// 카메라 촬영하여 uri 얻고 제대로 화면에 표시하는 등에 필요한 것들
+import androidx.core.content.FileProvider;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ImageUploadActivity extends AppCompatActivity {
     ImageView imageUploadImageView;
@@ -27,7 +47,11 @@ public class ImageUploadActivity extends AppCompatActivity {
     boolean isImageChanged = false;
     // 이미지 변경 관련
     Uri selectedImageUri;
-
+    // 이미지 관련
+    Uri imageUri;
+    // 카메라 관련
+    private static final int REQUEST_IMAGE_CAPTURE = 672;
+    private String imageFilePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +96,11 @@ public class ImageUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 사용자 갤러리 열어서 이미지 삽입하게 함
-                openGallery();
+               // openGallery();
+                // 인텐트를 사용하여 갤러리에서 뭘 가져올건지 수행함
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -80,16 +108,34 @@ public class ImageUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 사용자 갤러리 열어서 이미지 삽입하게 함
-                openGallery();
+                // openGallery();
+                // 인텐트를 사용하여 갤러리에서 뭘 가져올건지 수행함
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
+
+
             }
         });
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Open the camera to take a picture
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, PICK_IMAGE_REQUEST);
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = createImageFile();
+                    } catch (IOException ex) {
+                        // Error occurred while creating the File
+                    }
+                    if (photoFile != null) {
+                        imageUri = FileProvider.getUriForFile(getApplicationContext(), getPackageName()+".fileprovider", photoFile);
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+                    }
+                }
             }
         });
 
@@ -100,62 +146,104 @@ public class ImageUploadActivity extends AppCompatActivity {
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
     }
 
-    /*
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // 위에서 버튼을 눌렀을 때 이쪽으로 와서 case 1일 때로 들어가게 됨.
+        // 이때 선택한 이미지 uri를 넣어주기
+        switch(requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    imageUri = data.getData();
+                    imageUploadImageView.setImageURI(imageUri);
+                    isImageChanged = true;
+                }
+                break;
+            case REQUEST_IMAGE_CAPTURE:
+                if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            // Uri 가져오기
-            selectedImageUri = data.getData();
-            // 현재 이미지 뷰 교체
-            imageUploadImageView.setImageURI(selectedImageUri);
-            // 이미지가 변경되었음을 표시
-            isImageChanged = true;
-            // 이후 저 uri를 어떻게 서버로 보낼지도 고려해서 짜두기
-            //
+                    ExifInterface exif = null;
+                    try {
+                        exif = new ExifInterface(imageFilePath);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
+                    int exifOrientation;
+                    int exifDegree;
 
+                    if (exif != null) {
+                        exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                        exifDegree = exifOrientationToDegrees(exifOrientation);
+                    } else {
+                        exifDegree = 0;
+                    }
+                    ((ImageView)findViewById(R.id.imageUploadImageView)).setImageBitmap(rotate(bitmap, exifDegree));
+                    saveImageToGallery(rotate(bitmap, exifDegree));
+                    isImageChanged = true;
+                }
         }
     }
-*/
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data != null && data.getData() != null) {
-                // 갤러리에서 이미지를 선택한 경우
-                selectedImageUri = data.getData();
-            } else if (data != null && data.getExtras() != null) {
-                // 카메라로 이미지를 찍어서 가져온 경우
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
+    /////////////////////////////
 
-                // 이미지를 파일로 저장하거나 서버에 업로드 처리 가능
-                // ...
+    // 카메라 관련
+    private int exifOrientationToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
+    }
 
-                // 임시 파일로 저장하지 않고 바로 ImageView에 표시
-                imageUploadImageView.setImageBitmap(photo);
+    private Bitmap rotate(Bitmap bitmap, float degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
 
-                // 이미지가 변경되었음을 표시
-                isImageChanged = true;
-                return;
-            }
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "TEST_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,      /* prefix */
+                ".jpg",         /* suffix */
+                storageDir          /* directory */
+        );
+        imageFilePath = image.getAbsolutePath();
+        return image;
+    }
 
-            // 이미지를 파일로 저장하거나 서버에 업로드 처리 가능
-            // ...
 
-            // 현재 이미지 뷰 교체
-            imageUploadImageView.setImageURI(selectedImageUri);
+    private void saveImageToGallery(Bitmap bitmap) {
+        // Create a new file for the image
+        String imageFileName = "ASAP_Image_" + System.currentTimeMillis() + ".jpg";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File imageFile = new File(storageDir, imageFileName);
 
-            // 이미지가 변경되었음을 표시
-            isImageChanged = true;
+        try {
+            // Save the bitmap to the file
+            FileOutputStream fos = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+
+            // Notify the gallery about the new image
+            MediaScannerConnection.scanFile(this,
+                    new String[]{imageFile.getAbsolutePath()},
+                    new String[]{"image/jpeg"}, null);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
-
 
 }

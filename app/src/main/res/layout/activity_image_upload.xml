@@ -71,6 +71,7 @@
             android:id="@+id/imageUploadImageView"
             android:layout_width="350dp"
             android:layout_height="350dp"
+            android:scaleType="fitCenter"
             android:layout_marginTop="30dp"
             android:clickable="true"
             android:contentDescription="uploadImageView"
