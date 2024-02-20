@@ -94,6 +94,8 @@ public class TextUpload1Activity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     public void showDialogPurpose(){

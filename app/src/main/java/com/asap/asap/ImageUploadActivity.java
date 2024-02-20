@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import java.io.InputStream;
 public class ImageUploadActivity extends AppCompatActivity {
     ImageView imageUploadImageView;
     ImageButton leftButton, rightButton;
+    Button cameraButton, galleryButton;
     private static final int PICK_IMAGE_REQUEST = 1;
     boolean isImageChanged = false;
     // 이미지 변경 관련
@@ -35,6 +37,8 @@ public class ImageUploadActivity extends AppCompatActivity {
         imageUploadImageView = findViewById(R.id.imageUploadImageView);
         leftButton = findViewById(R.id.imageUploadLeftImageButton);
         rightButton = findViewById(R.id.imageUploadRightImageButton);
+        cameraButton = findViewById(R.id.cameraButton);
+        galleryButton = findViewById(R.id.galleryButton);
 
         // 버튼 이동 처리
         leftButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +75,24 @@ public class ImageUploadActivity extends AppCompatActivity {
                 openGallery();
             }
         });
+
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 사용자 갤러리 열어서 이미지 삽입하게 함
+                openGallery();
+            }
+        });
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open the camera to take a picture
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, PICK_IMAGE_REQUEST);
+            }
+        });
+
     }
 
     private void openGallery() {
@@ -78,6 +100,7 @@ public class ImageUploadActivity extends AppCompatActivity {
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
     }
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -95,8 +118,40 @@ public class ImageUploadActivity extends AppCompatActivity {
 
         }
     }
+*/
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getData() != null) {
+                // 갤러리에서 이미지를 선택한 경우
+                selectedImageUri = data.getData();
+            } else if (data != null && data.getExtras() != null) {
+                // 카메라로 이미지를 찍어서 가져온 경우
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
 
+                // 이미지를 파일로 저장하거나 서버에 업로드 처리 가능
+                // ...
+
+                // 임시 파일로 저장하지 않고 바로 ImageView에 표시
+                imageUploadImageView.setImageBitmap(photo);
+
+                // 이미지가 변경되었음을 표시
+                isImageChanged = true;
+                return;
+            }
+
+            // 이미지를 파일로 저장하거나 서버에 업로드 처리 가능
+            // ...
+
+            // 현재 이미지 뷰 교체
+            imageUploadImageView.setImageURI(selectedImageUri);
+
+            // 이미지가 변경되었음을 표시
+            isImageChanged = true;
+        }
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
