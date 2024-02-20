@@ -42,7 +42,7 @@ class ResultActivity : AppCompatActivity() {
 
 //https://lakue.tistory.com/10
         Log.d("Glide 라이브러리 사용 ", "0000000000000000000000000")
-        val testUrl = "https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg"
+        val testUrl = "https://www.job-post.co.kr/news/photo/202307/81602_85141_1831.jpg"
         Log.d("사용할 url", testUrl)
         //String testUrl = "C:\\Users\\11\\Desktop\\강의자료\\alice_image";
 

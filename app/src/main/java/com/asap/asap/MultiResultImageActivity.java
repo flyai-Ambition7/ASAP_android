@@ -52,14 +52,14 @@ public class MultiResultImageActivity extends AppCompatActivity {
         //Intent intent = getIntent();
         //resultImageUrlList = (ArrayList<String>) intent.getSerializableExtra("resultImageUrlList");
         // intetn로 받아오는 것 말고 임시로 넣어보기
-        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
-        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
-        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
-        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
-        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
-        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
-        resultImageUrlList.add("https://pbs.twimg.com/profile_images/1245698077245067265/HRzaMXDk_400x400.jpg");
-        resultImageUrlList.add("https://health.chosun.com/site/data/img_dir/2023/05/31/2023053102582_0.jpg");
+        resultImageUrlList.add("https://www.job-post.co.kr/news/photo/202307/81602_85141_1831.jpg");
+        resultImageUrlList.add("https://감성커피.com/upload/event_01/2021_08_09/admin_XisVh_2021_08_09_14_28_55.jpg");
+        resultImageUrlList.add("https://image.edaily.co.kr/images/Photo/files/NP/S/2021/02/PS21021701225.jpg");
+        resultImageUrlList.add("https://www.koit.co.kr/news/photo/202307/115047_67683_3438.jpg");
+        resultImageUrlList.add("https://blog.kakaocdn.net/dn/BaJw7/btqCQoDbqTw/jBm6GVMR42qaubsxA1kJKK/img.jpg");
+        resultImageUrlList.add("https://marketplace.canva.com/EAFzZlVhCN0/1/0/800w/canva-%EC%BB%A4%ED%94%BC%EC%83%89-%EB%B2%A0%EC%9D%B4%EC%A7%80%EC%83%89-%EA%B9%94%EB%81%94%ED%95%9C-%EC%B9%B4%ED%8E%98-%EC%8B%A0-%EB%A9%94%EB%89%B4-%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8-%ED%8F%AC%EC%8A%A4%ED%8A%B8-odekzsrVFWo.jpg");
+        resultImageUrlList.add("https://marketplace.canva.com/EAF6nXQOkK0/1/0/1600w/canva-%EA%B0%88%EC%83%89-%EC%BB%A4%ED%94%BC-%EB%A9%94%EB%89%B4-%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8-%EA%B2%8C%EC%8B%9C%EB%AC%BC-lGo4asC3iOY.jpg");
+        resultImageUrlList.add("https://img.freepik.com/free-psd/special-coffee-menu-sale-promotional-web-banner-or-instagram-banner-template_505751-3240.jpg");
 
         // 객체 생성 후 전달
         for (String resultUrl : resultImageUrlList) {
