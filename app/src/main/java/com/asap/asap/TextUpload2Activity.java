@@ -85,7 +85,12 @@ public class TextUpload2Activity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
 
+                /*
+                /////////////// 백엔드 연결시 이 부분 주석 풀기 ///////////////
                 // Uri를 Bitmap으로 변환
                 bitmap = getBitmapFromUri(imageUri);
 
@@ -113,6 +118,10 @@ public class TextUpload2Activity extends AppCompatActivity {
                     // 빈 값이 있으면 Toast 메시지 표시
                     Toast.makeText(TextUpload2Activity.this, "모든 필수 입력란을 채워주세요", Toast.LENGTH_SHORT).show();
                 }
+
+                /////////////////
+
+                 */
             }
         });
     }

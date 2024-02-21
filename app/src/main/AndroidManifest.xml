@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- 관련 퍼미션 : 갤러리 접근 및 저장 위함 -->
-
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true" />
@@ -26,6 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ASAP"
         tools:targetApi="31">
+        <activity
+            android:name=".ExtraConnectionActivity"
+            android:exported="false" />
         <activity
             android:name=".MultiResultImageActivity"
             android:exported="false" />
@@ -72,7 +74,6 @@
             </intent-filter>
         </activity>
 
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.asap.asap.fileprovider"
@@ -83,7 +84,5 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-
-
 
 </manifest>

@@ -144,6 +144,9 @@ class ResultActivity : AppCompatActivity() {
 
 
             //Toast.makeText(ResultActivity.this, "저장 버튼 클릭", Toast.LENGTH_SHORT).show();
+            val intent = Intent(this@ResultActivity, ExtraConnectionActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
         })
         //setContentView(R.layout.activity_result)
     }

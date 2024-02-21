@@ -97,6 +97,9 @@ public class MultiResultImageActivity extends AppCompatActivity {
                     e.printStackTrace();
                       Toast.makeText(MultiResultImageActivity.this, "이미지 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
+                Intent intent = new Intent(MultiResultImageActivity.this, ExtraConnectionActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
 
             }
         });
