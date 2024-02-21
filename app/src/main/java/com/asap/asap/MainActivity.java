@@ -159,11 +159,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, curPermission + " 권한 있음", Toast.LENGTH_SHORT).show();
             } else {
                 // 만약 권한 설정이 허용되어 있지 않은 경우 권한 없음이 토스트 메세지로 뜨고
-                Toast.makeText(this, curPermission + " 권한 없음", Toast.LENGTH_SHORT).show();
+                ////Toast.makeText(this, curPermission + " 권한 없음", Toast.LENGTH_SHORT).show();
                 // shouldShowRequestPermissionRationale는 사용자가 이전에 권한 요청을 거절했었을 때 true를 리턴하고
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this, curPermission)) {
                     //Toast.makeText(this, curPermission + " 권한 설명 필요함.", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, "이번 거절시 더이상 물어보지 않습니다 -> 권한 없어 기능을 사용할 수 없음", Toast.LENGTH_SHORT).show();
+                  ////  Toast.makeText(this, "이번 거절시 더이상 물어보지 않습니다 -> 권한 없어 기능을 사용할 수 없음", Toast.LENGTH_SHORT).show();
                     // 거절을 2번 하면 이후는 물어보지 않음으로 안내 문구를 보여줌
                     targetList.add(curPermission);
                     // 권한 부여할 용도인 targetList에 현재 물어본 curPermission 넣음
