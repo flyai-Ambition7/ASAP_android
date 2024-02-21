@@ -30,6 +30,9 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+
+
+
 public class MultiResultImageActivity extends AppCompatActivity {
     private RecyclerView resultRecyclerView;
     private Button homeButton;

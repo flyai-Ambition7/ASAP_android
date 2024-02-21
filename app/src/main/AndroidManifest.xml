@@ -26,6 +26,9 @@
         android:theme="@style/Theme.ASAP"
         tools:targetApi="31">
         <activity
+            android:name=".BackgroundTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".ExtraConnectionActivity"
             android:exported="false" />
         <activity

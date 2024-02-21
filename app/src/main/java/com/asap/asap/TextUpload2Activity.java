@@ -85,11 +85,12 @@ public class TextUpload2Activity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
 
-                /*
+                */
                 /////////////// 백엔드 연결시 이 부분 주석 풀기 ///////////////
                 // Uri를 Bitmap으로 변환
                 bitmap = getBitmapFromUri(imageUri);
@@ -121,7 +122,7 @@ public class TextUpload2Activity extends AppCompatActivity {
 
                 /////////////////
 
-                 */
+
             }
         });
     }
