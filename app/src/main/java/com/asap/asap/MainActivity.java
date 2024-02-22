@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton, signUpButton;
 
 
-    static public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
+    static public final String BASE_URL = "https://a5f7-203-236-8-208.ngrok-free.app ";
     static public MyAPI myAPI;
 
     @Override

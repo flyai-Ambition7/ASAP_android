@@ -2,6 +2,7 @@ package com.asap.asap;
 
 import static android.content.ContentValues.TAG;
 
+import static com.asap.asap.MainActivity.BASE_URL;
 import static com.asap.asap.MainActivity.myAPI;
 
 import android.content.Intent;
@@ -43,7 +44,8 @@ public class TextUpload2Activity extends AppCompatActivity {
     String base64Image;
 
 
-    public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
+    //public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
+   // public final String BASE_URL = "https://172.23.250.6";
     public MyAPI myAPI;
 
     @Override
@@ -134,8 +136,8 @@ public class TextUpload2Activity extends AppCompatActivity {
         Log.d(TAG, "POST");
         NewMenuInputItem item = new NewMenuInputItem();
         //item.setImage("테스트 이미지"); // 이후 추가
-        //item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
-        item.setUser_input_image(base64Image); // 지안 테스트
+        item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
+        //item.setUser_input_image(base64Image); // 지안 테스트
         // 테스트용
             /*
             item.setStore_name("스토어 이름");

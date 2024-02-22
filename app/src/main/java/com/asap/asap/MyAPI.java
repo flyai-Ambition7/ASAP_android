@@ -65,12 +65,12 @@ public interface MyAPI {
 
     // 신메뉴 API : 신메뉴 데이터 입력 new_menu_input
     // /asap/new_menu_input/ => /asap/new_menu_input/
-    @POST("/asap/new_menu_input/")
+    @POST("/asap/item-info/")
     Call<NewMenuInputItem> post_new_menu_input(@Body NewMenuInputItem post);
-    @GET("/asap/new_menu_input/")
+    @GET("/asap/item-info/")
     Call<List<NewMenuInputItem>> get_new_menu_input();
 
-    @GET("/asap/new_menu_input/{pk}/")
+    @GET("/asap/item-info/{pk}/")
     Call<NewMenuInputItem> get_new_menu_input_pk(@Path("pk") int pk);
     
     // 이후 ui 정해지고 input 정해지면 이벤트, 개업 api에 대해서도 추가 예정
@@ -78,12 +78,12 @@ public interface MyAPI {
     //
 
     // 최종 결과물 API : 홍보물 출력 image_result
-    @POST("/asap/image_result/")
+    @POST("/asap/result-data/")
     Call<ImageResultItem> post_image_result(@Body ImageResultItem post);
-    @GET("/asap/image_result/")
+    @GET("/asap/result-data/")
     Call<List<ImageResultItem>> get_image_result();
 
-    @GET("/asap/image_result/{pk}/")
+    @GET("/asap/result-data/{pk}/")
     Call<ImageResultItem> get_image_result(@Path("pk") int pk);
 
 

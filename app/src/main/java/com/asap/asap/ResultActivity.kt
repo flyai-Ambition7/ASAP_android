@@ -31,11 +31,20 @@ class ResultActivity : AppCompatActivity() {
     var saveButton: Button? = null
     var imageUrl: String? = null
     var bitmap: Bitmap? = null
+    //0222
+    //private var resultImageUrlList = java.util.ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
         //imageUrl = getIntent().getStringExtra("imageUrl");
         //Log.d("받은url이다", imageUrl);
+
+        //0222
+        // 실제 구현시 intent로 resultImageUrlList 받아오기
+
+
+
+        //////
         resultImageView = findViewById(R.id.resultImageView)
         homeButton = findViewById(R.id.homeButton)
         saveButton = findViewById(R.id.saveButton)
@@ -186,8 +195,8 @@ class ResultActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val mList = response.body()!!
                     val item = mList[mList.size - 1] // 마지막 항목 가져오기
-                    //val base64Image = item.getImage()
-                    val base64Image = item.getUser_input_image()
+                    val base64Image = item.getImage()
+                    //val base64Image = item.getUser_input_image()
                     // Base64 문자열을 디코딩하여 Bitmap으로 변환
                     val decodedBitmap = decodeBase64ToBitmap(base64Image)
                     // Bitmap을 ImageView에 설정

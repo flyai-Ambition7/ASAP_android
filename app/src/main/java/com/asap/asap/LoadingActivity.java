@@ -3,6 +3,8 @@ package com.asap.asap;
 import static android.content.ContentValues.TAG;
 //import static com.asap.asap.MainActivity.myAPI;
 
+import static com.asap.asap.MainActivity.BASE_URL;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoadingActivity extends AppCompatActivity {
     String imageUrl;
-    public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
+    //public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
     public MyAPI myAPI;
 
     int  resultImageUrlListCount = 3; // 총 생성 이미지 개수
@@ -63,7 +65,8 @@ public class LoadingActivity extends AppCompatActivity {
                         Log.d("url이다", imageUrl);
                         */
 
-                        Intent intent = new Intent(LoadingActivity.this, ResultActivity.class);
+                        //Intent intent = new Intent(LoadingActivity.this, ResultActivity.class);
+                        Intent intent = new Intent(LoadingActivity.this, MultiResultImageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         //intent.putExtra("imageUrl", imageUrl);
                         intent.putExtra("resultImageUrlList", resultImageUrlList);

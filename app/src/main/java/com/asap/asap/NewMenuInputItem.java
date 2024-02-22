@@ -2,22 +2,18 @@ package com.asap.asap;
 
 public class NewMenuInputItem {
 
-
-
-    //String image; // Base64로 변환된 이미지 데이터
-    String user_input_image;
+    String image; // Base64로 변환된 이미지 데이터
+  //  String user_input_image;
 
     // TextUpload1Activiy에서 받는 것들
     String store_name,purpose, result_type, theme;
 
     // 별도 - 신메뉴일 때
-    String product_name,description, business_hours, location, contact;
+    String product_name,price,description, business_hours, location, contact;
 
 
-    //int price; // 민수 테스트
-    String price; // 지안 테스트
 
-/*
+
     public String getImage() {
         return image;
     }
@@ -25,7 +21,7 @@ public class NewMenuInputItem {
     public void setImage(String image) {
         this.image = image;
     }
-*/
+/*
 
     public String getUser_input_image() {
         return user_input_image;
@@ -34,7 +30,7 @@ public class NewMenuInputItem {
     public void setUser_input_image(String user_input_image) {
         this.user_input_image = user_input_image;
     }
-
+*/
     public String getStore_name() {
         return store_name;
     }
