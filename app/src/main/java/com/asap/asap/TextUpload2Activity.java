@@ -109,12 +109,14 @@ public class TextUpload2Activity extends AppCompatActivity {
                 time = timeEditText.getText().toString().trim();
                 where = whereEditText.getText().toString().trim();
                 storePhone = storePhoneEditText.getText().toString().trim();
+                Log.d("입력란 채우는 중", "입력란~~~~~~~~~~~~~~~~~~~~");
 
                 // 필수 입력란이 채워져 있는지 확인
                 if (!productName.isEmpty() && !price.isEmpty() && !info.isEmpty()) {
                     if (time.isEmpty()){ time = "미입력";}
                     if (where.isEmpty()){where = "미입력";}
                     if (storePhone.isEmpty()){storePhone= "미입력";}
+                    Log.d("입력란 다 채워지니", "입력란~~~~~~~~~~~~~~~~~~~~");
                     restAPI();
 
                 } else {
@@ -135,6 +137,7 @@ public class TextUpload2Activity extends AppCompatActivity {
         final boolean[] isNewMenuInput = {false};
         Log.d(TAG, "POST");
         NewMenuInputItem item = new NewMenuInputItem();
+        Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
         //item.setImage("테스트 이미지"); // 이후 추가
         item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
         //item.setUser_input_image(base64Image); // 지안 테스트
