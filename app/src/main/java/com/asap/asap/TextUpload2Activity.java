@@ -178,16 +178,16 @@ public class TextUpload2Activity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "등록 완료");
                     isNewMenuInput[0] = true;
-                    Log.d(TAG, "Status Code : " + response.code());
-
+                    Log.d(TAG, "Status Code 성공 : " + response.code());
+                    Toast.makeText(TextUpload2Activity.this, "Status Code성공 : " + response.code(), Toast.LENGTH_SHORT).show();
                     //Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
                     Intent intent = new Intent(TextUpload2Activity.this, LoadingActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
 
                 } else {
-
-                    Log.d(TAG, "Status Code : " + response.code());
+                    Toast.makeText(TextUpload2Activity.this,"Status 못받 : " +  response.code(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Status Code 못받 : " + response.code());
                     Log.d(TAG, response.errorBody().toString());
                     Log.d(TAG, call.request().body().toString());
                     isNewMenuInput[0] = false;
@@ -199,11 +199,13 @@ public class TextUpload2Activity extends AppCompatActivity {
                 if (call != null && call.isExecuted()) {
                     // 서버 응답이 있을 때만 상태 코드 로그 출력
                     try {
+                        Toast.makeText(TextUpload2Activity.this,"Status Code on Failure: " + call.execute().code(), Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "Status Code on Failure: " + call.execute().code());
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }else{
+                    Toast.makeText(TextUpload2Activity.this,"서버 응답 없음 Fail msg : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "서버 응답 없음 Fail msg : " + t.getMessage());
                 }
                 Log.d(TAG, "Fail msg : " + t.getMessage());
