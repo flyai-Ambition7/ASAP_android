@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private Button loginButton, signUpButton;
 
 
-    static public final String BASE_URL = "https://6dcb-203-236-8-208.ngrok-free.app";
+    static public final String BASE_URL = "https://f18b-210-94-221-128.ngrok-free.app";
     static public MyAPI myAPI;
 
     @Override
@@ -194,10 +195,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initSignUpAPI(String baseUrl){
-
+        // timeout setting 해주기
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .build();
         Log.d(TAG,"initSignUpAPI : " + baseUrl);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

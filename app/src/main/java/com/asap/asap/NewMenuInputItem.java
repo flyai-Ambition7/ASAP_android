@@ -2,6 +2,8 @@ package com.asap.asap;
 
 public class NewMenuInputItem {
 
+  //  String result_image_url; // 생성된 이미지 url 지안 테스트
+
     String image; // Base64로 변환된 이미지 데이터
   //  String user_input_image;
 
@@ -11,6 +13,16 @@ public class NewMenuInputItem {
     // 별도 - 신메뉴일 때
     String product_name,price,description, business_hours, location, contact;
 
+    /*
+    public String getResult_image_url() {
+        return result_image_url;
+    }
+
+    public void setResult_image_url(String result_image_url) {
+        this.result_image_url = result_image_url;
+    }
+
+     */
 
 
 

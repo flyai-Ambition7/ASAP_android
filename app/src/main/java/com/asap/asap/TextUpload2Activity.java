@@ -19,8 +19,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -175,12 +178,15 @@ public class TextUpload2Activity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Log.d(TAG, "등록 완료");
                     isNewMenuInput[0] = true;
+                    Log.d(TAG, "Status Code : " + response.code());
+
                     //Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
                     Intent intent = new Intent(TextUpload2Activity.this, LoadingActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
 
                 } else {
+
                     Log.d(TAG, "Status Code : " + response.code());
                     Log.d(TAG, response.errorBody().toString());
                     Log.d(TAG, call.request().body().toString());
@@ -190,7 +196,18 @@ public class TextUpload2Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<NewMenuInputItem> call, Throwable t) {
+                if (call != null && call.isExecuted()) {
+                    // 서버 응답이 있을 때만 상태 코드 로그 출력
+                    try {
+                        Log.d(TAG, "Status Code on Failure: " + call.execute().code());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }else{
+                    Log.d(TAG, "서버 응답 없음 Fail msg : " + t.getMessage());
+                }
                 Log.d(TAG, "Fail msg : " + t.getMessage());
+
                 isNewMenuInput[0] = false;
             }
         });
@@ -210,15 +227,23 @@ public class TextUpload2Activity extends AppCompatActivity {
         }
     }
 
-    public void initAPI(String baseUrl) {
 
-        Log.d(TAG, "initSignUpAPI : " + baseUrl);
+    public void initAPI(String baseUrl) {
+        // timeout setting 해주기
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .build();
+        Log.d(TAG,"initAPI : " + baseUrl);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
+        //.addConverterFactory(new NullOnEmptyConverterFactory())
         myAPI = retrofit.create(MyAPI.class);
     }
+
 
 }
