@@ -32,44 +32,47 @@ class ResultActivity : AppCompatActivity() {
     var imageUrl: String? = null
     var bitmap: Bitmap? = null
     //0222
-    //private var resultImageUrlList = java.util.ArrayList<String>()
+    private var resultImageUrlList = java.util.ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
         //imageUrl = getIntent().getStringExtra("imageUrl");
         //Log.d("받은url이다", imageUrl);
 
-        //0222
         // 실제 구현시 intent로 resultImageUrlList 받아오기
-
-
+        resultImageUrlList = intent.getStringArrayListExtra("resultImageUrlList") ?: ArrayList()
 
         //////
         resultImageView = findViewById(R.id.resultImageView)
         homeButton = findViewById(R.id.homeButton)
         saveButton = findViewById(R.id.saveButton)
 
-//https://lakue.tistory.com/10
+        /*
+        // test data
+        //https://lakue.tistory.com/10
         Log.d("Glide 라이브러리 사용 ", "0000000000000000000000000")
         val testUrl = "https://www.job-post.co.kr/news/photo/202307/81602_85141_1831.jpg"
         Log.d("사용할 url", testUrl)
         //String testUrl = "C:\\Users\\11\\Desktop\\강의자료\\alice_image";
+        */
 
-        resultImageView?.let {
-            // Use it safely inside this block
-            GlideApp.with(this).load(testUrl)
-                    //.override(100, 100)
+        // 리스트 비어 있는지 확인 후 가장 최근 항목(마지막)을 가져와서 glide로 그림
+        if (resultImageUrlList.isNotEmpty()) {
+            val lastImageUrl = resultImageUrlList.last()
+
+            resultImageView?.let {
+                GlideApp.with(this).load(lastImageUrl)
                     .placeholder(R.drawable.result_page_default_image)
                     .apply(RequestOptions()
-                            .signature(ObjectKey("signature string"))
-                            .skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .signature(ObjectKey("signature string"))
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                     )
                     .error(R.drawable.onboarding_image_01)
                     .fallback(R.drawable.onboarding_image_02)
                     .into(it)
+            }
         }
-
         Log.d("Glide 완료 ", "1111111111111111111111")
 
 

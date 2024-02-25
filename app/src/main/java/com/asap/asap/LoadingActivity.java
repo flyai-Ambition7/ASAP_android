@@ -13,7 +13,9 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,7 +27,7 @@ public class LoadingActivity extends AppCompatActivity {
     //public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
     public MyAPI myAPI;
 
-    int  resultImageUrlListCount = 3; // 총 생성 이미지 개수
+    int  resultImageUrlListCount = 1; // 총 생성 이미지 개수
     ArrayList<String> resultImageUrlList = new ArrayList<>();
     // 총 생성된 이미지 url 들어 있는 리스트
 
@@ -88,14 +90,20 @@ public class LoadingActivity extends AppCompatActivity {
 
 
     }
-    public void initAPI(String baseUrl){
-
-        Log.d(TAG,"initSignUpAPI : " + baseUrl);
+    public void initAPI(String baseUrl) {
+        // timeout setting 해주기
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .build();
+        Log.d(TAG,"initAPI : " + baseUrl);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
+        //.addConverterFactory(new NullOnEmptyConverterFactory())
         myAPI = retrofit.create(MyAPI.class);
     }
 }
