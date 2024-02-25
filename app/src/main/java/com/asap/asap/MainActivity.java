@@ -20,9 +20,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 ///////////socket
@@ -43,9 +47,12 @@ public class MainActivity extends AppCompatActivity {
 
 
    // static public final String BASE_URL = "https://f18b-210-94-221-128.ngrok-free.app";
-    static public final String BASE_URL = "https://d96b-49-170-35-196.ngrok-free.app ";
+    static public final String BASE_URL = "https://365e-59-5-187-53.ngrok-free.app";
 
     static public MyAPI myAPI;
+
+    int  resultImageUrlListCount = 1; // 총 생성 이미지 개수
+    ArrayList<String> resultImageUrlList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                restAPIGet();
+                /*
                 // 클릭 시 이후 백과 연결해서 RestAPI 확인 후 인증 과정
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 //Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
@@ -97,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                 // 이것을 사용하여 MainActivity를 OnCreate하지 않고 재사용하기 때문에 초기화가 되지 않음
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+
+                 */
             }
         });
 
@@ -213,5 +224,64 @@ public class MainActivity extends AppCompatActivity {
 
         myAPI = retrofit.create(MyAPI.class);
     }
+    public boolean restAPIGet(){
+        final boolean[] isResult = {false};
+        Log.d(TAG,"GET");
+        Call<List<ImageResultItem>> getCall = myAPI.get_image_result();
+        getCall.enqueue(new Callback<List<ImageResultItem>>() {
+            @Override
+            public void onResponse(Call<List<ImageResultItem>> call, Response<List<ImageResultItem>> response) {
+                if( response.isSuccessful()){
+                    isResult[0] = true;
+                    List<ImageResultItem> mList = response.body();
+                    //첫 번째 아이템을 사용
+                    //ImageResultItem latestImage = mList.get(0);
+                    if (mList != null && !mList.isEmpty()) {
+                        int listSize = mList.size();
+                        int startIndex = Math.max(listSize - resultImageUrlListCount, 0);
+                        List<ImageResultItem> selectedItems = mList.subList(startIndex, listSize);
 
+                        for (ImageResultItem item : selectedItems) {
+                            Log.d("받아온 데이터", item.getResult_image_url());
+                            resultImageUrlList.add(item.getResult_image_url());
+                        }
+                        /*
+                        // 목록이 비어있지 않으면 마지막 아이템을 사용
+                        ImageResultItem latestImage = mList.get(mList.size() - 1);
+                        // latestImage를 사용하여 필요한 로직 수행
+                        Log.d("받아온 데이터", latestImage.getResult_image_url());
+                        // 예시로 로그에 출력하는 부분
+                        Log.d(TAG, "Latest Image URL: " + latestImage.getResult_image_url().toString());
+                        imageUrl = latestImage.getResult_image_url();
+                        Log.d("url이다", imageUrl);
+                        */
+
+                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                        //Intent intent = new Intent(MainActivity.this, MultiResultImageActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        String imageUrl = resultImageUrlList.get(0);
+                        intent.putExtra("imageUrl", imageUrl);
+                        //intent.putExtra("resultImageUrlList", resultImageUrlList);
+                        startActivity(intent);
+
+
+                    } else {
+                        isResult[0] = false;
+                        Log.d(TAG, "Image list is empty.");
+                    }
+                }else {
+                    isResult[0] = false;
+                    Log.d(TAG,"Status Code : " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ImageResultItem>> call, Throwable t) {
+                isResult[0] = false;
+                Log.d(TAG,"Fail msg : " + t.getMessage());
+            }
+        });
+        Log.d("결과 ", String.valueOf(isResult[0]));
+        return isResult[0];
+    }
 }

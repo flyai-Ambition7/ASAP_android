@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -46,15 +48,57 @@ public class LoadingActivity extends AppCompatActivity {
 
         // 프로그레스바 안 보이게
        // progressBar1.setVisibility(View.GONE);
-
-
+///////////////
         initAPI(BASE_URL);
+        //////////
+        // Intent에서 데이터 추출
+        Intent intent = getIntent();
+        if (intent != null) {
+            NewMenuInputItem receivedItem = (NewMenuInputItem) intent.getSerializableExtra("newMenuInputItem");
+
+            // 받아온 데이터 사용
+            if (receivedItem != null) {
+                Log.d("LoadingActivity", "Received Data: " + receivedItem.getStore_name() + " " +
+                        receivedItem.getPurpose() + " " + receivedItem.getResult_type() + " " +
+                        receivedItem.getTheme() + " " + receivedItem.getProduct_name() + " " +
+                        receivedItem.getPrice() + " " + receivedItem.getDescription() + " " +
+                        receivedItem.getBusiness_hours() + " " + receivedItem.getLocation() + " " +
+                        receivedItem.getContact());
+                restAPIPost(receivedItem);
+            }
+
+        }
+        //////////////
+
+
+
+    }
+    public void initAPI(String baseUrl) {
+        // timeout setting 해주기
+        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                .connectTimeout(300, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300, TimeUnit.SECONDS)
+                .build();
+        Log.d(TAG,"initAPI : " + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        //.addConverterFactory(new NullOnEmptyConverterFactory())
+        myAPI = retrofit.create(MyAPI.class);
+    }
+
+    public boolean restAPIGet(){
+        final boolean[] isResult = {false};
         Log.d(TAG,"GET");
         Call<List<ImageResultItem>> getCall = myAPI.get_image_result();
         getCall.enqueue(new Callback<List<ImageResultItem>>() {
             @Override
             public void onResponse(Call<List<ImageResultItem>> call, Response<List<ImageResultItem>> response) {
                 if( response.isSuccessful()){
+                    isResult[0] = true;
                     List<ImageResultItem> mList = response.body();
                     //첫 번째 아이템을 사용
                     //ImageResultItem latestImage = mList.get(0);
@@ -86,35 +130,76 @@ public class LoadingActivity extends AppCompatActivity {
                         startActivity(intent);
 
                     } else {
+                        isResult[0] = false;
                         Log.d(TAG, "Image list is empty.");
                     }
                 }else {
+                    isResult[0] = false;
                     Log.d(TAG,"Status Code : " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<ImageResultItem>> call, Throwable t) {
+                isResult[0] = false;
                 Log.d(TAG,"Fail msg : " + t.getMessage());
             }
         });
-
-
+        Log.d("결과 ", String.valueOf(isResult[0]));
+        return isResult[0];
     }
-    public void initAPI(String baseUrl) {
-        // timeout setting 해주기
-        OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
-                .connectTimeout(300, TimeUnit.SECONDS)
-                .readTimeout(300, TimeUnit.SECONDS)
-                .writeTimeout(300, TimeUnit.SECONDS)
-                .build();
-        Log.d(TAG,"initAPI : " + baseUrl);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        //.addConverterFactory(new NullOnEmptyConverterFactory())
-        myAPI = retrofit.create(MyAPI.class);
+    public boolean restAPIPost(NewMenuInputItem item) {
+        // rest api
+        ///////////////////////////////////////
+        final boolean[] isNewMenuInput = {false};
+        Log.d(TAG, "POST");
+
+        Call<NewMenuInputItem> postCall = myAPI.post_new_menu_input(item);
+        postCall.enqueue(new Callback<NewMenuInputItem>() {
+
+            @Override
+            public void onResponse(Call<NewMenuInputItem> call, Response<NewMenuInputItem> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "등록 완료");
+                    isNewMenuInput[0] = true;
+                    Log.d(TAG, "Status Code 성공 : " + response.code());
+                    Toast.makeText(LoadingActivity.this, "Status Code성공 : " + response.code(), Toast.LENGTH_SHORT).show();
+                 
+                    //get 시작
+                    //
+                    restAPIGet();
+
+                } else {
+                    Toast.makeText(LoadingActivity.this,"Status 못받 : " +  response.code(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Status Code 못받 : " + response.code());
+                    Log.d(TAG, response.errorBody().toString());
+                    Log.d(TAG, call.request().body().toString());
+                    isNewMenuInput[0] = false;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NewMenuInputItem> call, Throwable t) {
+                if (call != null && call.isExecuted()) {
+                    // 서버 응답이 있을 때만 상태 코드 로그 출력
+                    try {
+                        Toast.makeText(LoadingActivity.this,"Status Code on Failure: " + call.execute().code(), Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "Status Code on Failure: " + call.execute().code());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }else{
+                    Toast.makeText(LoadingActivity.this,"서버 응답 없음 Fail msg : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "서버 응답 없음 Fail msg : " + t.getMessage());
+                }
+                Log.d(TAG, "Fail msg : " + t.getMessage());
+
+                isNewMenuInput[0] = false;
+            }
+        });
+        ////
+        Log.d("결과 ", String.valueOf(isNewMenuInput[0]));
+        return isNewMenuInput[0];
     }
+
 }

@@ -1,7 +1,9 @@
 package com.asap.asap;
 
-public class NewMenuInputItem {
+import java.io.Serializable;
 
+public class NewMenuInputItem implements Serializable {
+    private static final long serialVersionUID = 1L;
   //  String result_image_url; // 생성된 이미지 url 지안 테스트
 
     String image; // Base64로 변환된 이미지 데이터

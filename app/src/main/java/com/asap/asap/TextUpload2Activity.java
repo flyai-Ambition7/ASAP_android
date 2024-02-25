@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -120,7 +121,9 @@ public class TextUpload2Activity extends AppCompatActivity {
                     if (where.isEmpty()){where = "미입력";}
                     if (storePhone.isEmpty()){storePhone= "미입력";}
                     Log.d("입력란 다 채워지니", "입력란~~~~~~~~~~~~~~~~~~~~");
-                    restAPI();
+
+                    loadingIntent();
+                   // restAPI();
 
                 } else {
                     // 빈 값이 있으면 Toast 메시지 표시
@@ -134,6 +137,30 @@ public class TextUpload2Activity extends AppCompatActivity {
         });
     }
 
+    public void loadingIntent(){
+        NewMenuInputItem item = new NewMenuInputItem();
+        Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
+        //item.setImage("테스트 이미지"); // 이후 추가
+        item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
+        item.setStore_name(storeName);
+        item.setPurpose(purpose);
+        item.setResult_type(resultForm);
+        item.setTheme(theme);
+        item.setProduct_name(productName);
+        //item.setPrice(Integer.parseInt(price)); // 민수
+        item.setPrice(price); // 지안
+        item.setDescription(info);
+        item.setBusiness_hours(time);
+        item.setLocation(where);
+        item.setContact(storePhone);
+        Log.d("TextUpload2Activity intent 잘 받아옴", storeName + purpose + resultForm+theme+productName+price+info+time+where+storePhone);
+        // Intent 생성
+        Intent intent = new Intent(this, LoadingActivity.class);
+        intent.putExtra("newMenuInputItem", (Serializable) item);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+
+    }
     public boolean restAPI() {
         // rest api
         ///////////////////////////////////////
@@ -143,20 +170,6 @@ public class TextUpload2Activity extends AppCompatActivity {
         Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
         //item.setImage("테스트 이미지"); // 이후 추가
         item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
-        //item.setUser_input_image(base64Image); // 지안 테스트
-        // 테스트용
-            /*
-            item.setStore_name("스토어 이름");
-            item.setPurpose("목적");
-            item.setResult_type("결과물 형태");
-            item.setTheme("테마");
-            item.setProduct_name("상품명");
-            item.setPrice(5000);
-            item.setDescription("악!!!!!!!!!!!!!!!!!");
-            item.setBusiness_hours("24시");
-            item.setLocation("위치");
-            item.setContact("연락처");
-            */
         item.setStore_name(storeName);
         item.setPurpose(purpose);
         item.setResult_type(resultForm);

@@ -24,7 +24,16 @@ import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
+/////////
+import android.graphics.drawable.Drawable
 
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+
+import com.bumptech.glide.request.target.Target
+//////////
 class ResultActivity : AppCompatActivity() {
     var resultImageView: ImageView? = null
     var homeButton: Button? = null
@@ -36,11 +45,11 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
-        //imageUrl = getIntent().getStringExtra("imageUrl");
-        //Log.d("받은url이다", imageUrl);
+        imageUrl = getIntent().getStringExtra("imageUrl");
+        Log.d("받은url이다", imageUrl.toString());
 
         // 실제 구현시 intent로 resultImageUrlList 받아오기
-        resultImageUrlList = intent.getStringArrayListExtra("resultImageUrlList") ?: ArrayList()
+        //resultImageUrlList = intent.getStringArrayListExtra("resultImageUrlList") ?: ArrayList()
 
         //////
         resultImageView = findViewById(R.id.resultImageView)
@@ -55,7 +64,8 @@ class ResultActivity : AppCompatActivity() {
         Log.d("사용할 url", testUrl)
         //String testUrl = "C:\\Users\\11\\Desktop\\강의자료\\alice_image";
         */
-
+        // 리스트로 받아오는 것은 아래로 실행
+        /*
         // 리스트 비어 있는지 확인 후 가장 최근 항목(마지막)을 가져와서 glide로 그림
         if (resultImageUrlList.isNotEmpty()) {
             val lastImageUrl = resultImageUrlList.last()
@@ -73,6 +83,23 @@ class ResultActivity : AppCompatActivity() {
                     .into(it)
             }
         }
+        */
+
+        resultImageView?.let {
+            GlideApp.with(this).load(imageUrl)
+                .override(Target.SIZE_ORIGINAL)
+
+                .placeholder(R.drawable.result_page_default_image)
+                .apply(RequestOptions()
+                    .signature(ObjectKey("signature string"))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                )
+                .error(R.drawable.main_logo_asap)
+                .fallback(R.drawable.onboarding_image_02)
+                .into(it)
+        }
+
         Log.d("Glide 완료 ", "1111111111111111111111")
 
 
