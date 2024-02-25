@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +33,19 @@ public class LoadingActivity extends AppCompatActivity {
     ArrayList<String> resultImageUrlList = new ArrayList<>();
     // 총 생성된 이미지 url 들어 있는 리스트
 
+    ProgressBar progressBar1, progressBar2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+        progressBar1 = findViewById(R.id.progressBar1);
+
+        // 프로그레스바 보이기
+        progressBar1.setVisibility(View.VISIBLE);
+
+        // 프로그레스바 안 보이게
+       // progressBar1.setVisibility(View.GONE);
 
 
         initAPI(BASE_URL);

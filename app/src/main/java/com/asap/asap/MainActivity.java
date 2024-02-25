@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // 클릭 시 이후 백과 연결해서 RestAPI 확인 후 인증 과정
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                //Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
                 //Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                 //Intent intent = new Intent(MainActivity.this, MultiResultImageActivity.class);
                 //Intent intent = new Intent(MainActivity.this, GlideTestActivity.class);
