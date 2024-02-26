@@ -36,16 +36,16 @@ public class TextUpload2Activity extends AppCompatActivity {
     EditText productNameEditText, priceEditText, infoEditText, timeEditText, whereEditText, storePhoneEditText;
 
     // 입력 내용
-    String productName, price, info; // 필수
-    String time, where, storePhone; // 선택
+    public static String productName, price, info; // 필수
+    public static String time, where, storePhone; // 선택
     ////
 
     /////////
-    String storeName, theme, purpose, resultForm;
+    public static String storeName, theme, purpose, resultForm;
     String imageUriString;
-    Uri imageUri;
+     Uri imageUri;
     Bitmap bitmap;
-    String base64Image;
+    public static String base64Image;
 
 
     //public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
@@ -122,9 +122,15 @@ public class TextUpload2Activity extends AppCompatActivity {
                     if (storePhone.isEmpty()){storePhone= "미입력";}
                     Log.d("입력란 다 채워지니", "입력란~~~~~~~~~~~~~~~~~~~~");
 
-                    loadingIntent();
+                   loadingIntent(); // 이거 사용해야 함
                    // restAPI();
 
+                   /*
+                    Intent intent = new Intent(TextUpload2Activity.this, MultiResultImageActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+
+                    */
                 } else {
                     // 빈 값이 있으면 Toast 메시지 표시
                     Toast.makeText(TextUpload2Activity.this, "모든 필수 입력란을 채워주세요", Toast.LENGTH_SHORT).show();
@@ -138,9 +144,11 @@ public class TextUpload2Activity extends AppCompatActivity {
     }
 
     public void loadingIntent(){
+        /*
         NewMenuInputItem item = new NewMenuInputItem();
         Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
         //item.setImage("테스트 이미지"); // 이후 추가
+
         item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
         item.setStore_name(storeName);
         item.setPurpose(purpose);
@@ -154,9 +162,13 @@ public class TextUpload2Activity extends AppCompatActivity {
         item.setLocation(where);
         item.setContact(storePhone);
         Log.d("TextUpload2Activity intent 잘 받아옴", storeName + purpose + resultForm+theme+productName+price+info+time+where+storePhone);
+
+         */
         // Intent 생성
         Intent intent = new Intent(this, LoadingActivity.class);
-        intent.putExtra("newMenuInputItem", (Serializable) item);
+
+        //intent.putExtra("newMenuInputItem", item);
+
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
 

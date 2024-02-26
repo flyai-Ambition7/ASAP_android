@@ -26,6 +26,7 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 /////////
 import android.graphics.drawable.Drawable
+import com.bumptech.glide.Glide
 
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.DecodeFormat
@@ -86,6 +87,7 @@ class ResultActivity : AppCompatActivity() {
         */
 
         resultImageView?.let {
+            /*
             GlideApp.with(this).load(imageUrl)
                 .override(Target.SIZE_ORIGINAL)
 
@@ -98,7 +100,24 @@ class ResultActivity : AppCompatActivity() {
                 .error(R.drawable.main_logo_asap)
                 .fallback(R.drawable.onboarding_image_02)
                 .into(it)
+            */
+            GlideApp.with(this)
+                .load(imageUrl)
+                .override(Target.SIZE_ORIGINAL)
+                .placeholder(R.drawable.result_page_default_image)
+                .apply(RequestOptions()
+                    .signature(ObjectKey("signature string"))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                )
+                .error(R.drawable.main_logo_asap)
+                .fallback(R.drawable.onboarding_image_02)
+
+                .into(it)
         }
+
+
+
 
         Log.d("Glide 완료 ", "1111111111111111111111")
 

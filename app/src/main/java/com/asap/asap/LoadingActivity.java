@@ -4,6 +4,17 @@ import static android.content.ContentValues.TAG;
 //import static com.asap.asap.MainActivity.myAPI;
 
 import static com.asap.asap.MainActivity.BASE_URL;
+import static com.asap.asap.TextUpload2Activity.base64Image;
+import static com.asap.asap.TextUpload2Activity.info;
+import static com.asap.asap.TextUpload2Activity.price;
+import static com.asap.asap.TextUpload2Activity.productName;
+import static com.asap.asap.TextUpload2Activity.purpose;
+import static com.asap.asap.TextUpload2Activity.resultForm;
+import static com.asap.asap.TextUpload2Activity.storeName;
+import static com.asap.asap.TextUpload2Activity.storePhone;
+import static com.asap.asap.TextUpload2Activity.theme;
+import static com.asap.asap.TextUpload2Activity.time;
+import static com.asap.asap.TextUpload2Activity.where;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -50,7 +61,29 @@ public class LoadingActivity extends AppCompatActivity {
        // progressBar1.setVisibility(View.GONE);
 ///////////////
         initAPI(BASE_URL);
+
+
+
+        NewMenuInputItem item = new NewMenuInputItem();
+        Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
+        //item.setImage("테스트 이미지"); // 이후 추가
+
+        item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
+        item.setStore_name(storeName);
+        item.setPurpose(purpose);
+        item.setResult_type(resultForm);
+        item.setTheme(theme);
+        item.setProduct_name(productName);
+        //item.setPrice(Integer.parseInt(price)); // 민수
+        item.setPrice(price); // 지안
+        item.setDescription(info);
+        item.setBusiness_hours(time);
+        item.setLocation(where);
+        item.setContact(storePhone);
+        Log.d("TextUpload2Activity intent 잘 받아옴", storeName + purpose + resultForm+theme+productName+price+info+time+where+storePhone);
+        restAPIPost(item);
         //////////
+        /*
         // Intent에서 데이터 추출
         Intent intent = getIntent();
         if (intent != null) {
@@ -67,7 +100,7 @@ public class LoadingActivity extends AppCompatActivity {
                 restAPIPost(receivedItem);
             }
 
-        }
+        }*/
         //////////////
 
 

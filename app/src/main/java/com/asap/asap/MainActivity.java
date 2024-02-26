@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
 
    // static public final String BASE_URL = "https://f18b-210-94-221-128.ngrok-free.app";
-    static public final String BASE_URL = "https://365e-59-5-187-53.ngrok-free.app";
+    static public final String BASE_URL = "https://5e8c-39-115-190-39.ngrok-free.app";
 
     static public MyAPI myAPI;
 
@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restAPIGet();
-                /*
+                //restAPIGet();
+
                 // 클릭 시 이후 백과 연결해서 RestAPI 확인 후 인증 과정
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 //Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
 
-                 */
             }
         });
 
@@ -256,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("url이다", imageUrl);
                         */
 
+                        //Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                         //Intent intent = new Intent(MainActivity.this, MultiResultImageActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
