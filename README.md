@@ -1,7 +1,9 @@
 # ASAP_android
 # Front-End Development Overview
 
-Welcome to the front-end development repository of our project! Below is a brief guide to the structure of our front-end codebase.
+![Android Studio](https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Android_Studio_icon.svg/1200px-Android_Studio_icon.svg.png)
+![Java](https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Java_programming_language_logo.svg/1200px-Java_programming_language_logo.svg.png)
+![Kotlin](https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin_Icon.png/1200px-Kotlin_Icon.png)
 
 ## Project Structure
 
