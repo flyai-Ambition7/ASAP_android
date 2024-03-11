@@ -1,5 +1,11 @@
 # ASAP_android
-Service Client APP
+# Front-End Development Overview
+
+Welcome to the front-end development repository of our project! Below is a brief guide to the structure of our front-end codebase.
+
+## Project Structure
+
+
 - 현재 진행된 것: figma ui => view & activiy 구현 완료, rest api를 제외한 기본 기능 구현 완료
   <img width="508" alt="image" src="https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/0fcc05e2-4a13-4d60-bc62-aad0febedb3d">
 <img width="524" alt="image" src="https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/a8f49294-c8d8-48a4-845c-dea9e5dc2831">
