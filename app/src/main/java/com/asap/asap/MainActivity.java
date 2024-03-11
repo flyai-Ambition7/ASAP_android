@@ -29,12 +29,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-///////////socket
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-/////////////
+
+// 2024.03.12.데모 때 사용된 그대로. 리팩토링 전
 
 
 public class MainActivity extends AppCompatActivity {
