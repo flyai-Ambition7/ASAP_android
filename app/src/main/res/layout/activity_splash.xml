@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/mainOrange"
     tools:context=".SplashActivity">
 
     <ImageView
@@ -15,6 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/input_white_round_rect_background"
         app:srcCompat="@drawable/main_logo_asap" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

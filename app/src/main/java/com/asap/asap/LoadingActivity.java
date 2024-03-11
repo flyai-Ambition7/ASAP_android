@@ -38,15 +38,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoadingActivity extends AppCompatActivity {
-    String imageUrl;
-    //public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
     public MyAPI myAPI;
-
     int  resultImageUrlListCount = 1; // 총 생성 이미지 개수
     ArrayList<String> resultImageUrlList = new ArrayList<>();
     // 총 생성된 이미지 url 들어 있는 리스트
-
-    ProgressBar progressBar1, progressBar2;
+    ProgressBar progressBar1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +52,14 @@ public class LoadingActivity extends AppCompatActivity {
 
         // 프로그레스바 보이기
         progressBar1.setVisibility(View.VISIBLE);
-
         // 프로그레스바 안 보이게
        // progressBar1.setVisibility(View.GONE);
-///////////////
+
         initAPI(BASE_URL);
 
 
-
         NewMenuInputItem item = new NewMenuInputItem();
-        Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
+        //Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
         //item.setImage("테스트 이미지"); // 이후 추가
 
         item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
@@ -80,30 +74,8 @@ public class LoadingActivity extends AppCompatActivity {
         item.setBusiness_hours(time);
         item.setLocation(where);
         item.setContact(storePhone);
-        Log.d("TextUpload2Activity intent 잘 받아옴", storeName + purpose + resultForm+theme+productName+price+info+time+where+storePhone);
+        //Log.d("TextUpload2Activity intent 잘 받아옴", storeName + purpose + resultForm+theme+productName+price+info+time+where+storePhone);
         restAPIPost(item);
-        //////////
-        /*
-        // Intent에서 데이터 추출
-        Intent intent = getIntent();
-        if (intent != null) {
-            NewMenuInputItem receivedItem = (NewMenuInputItem) intent.getSerializableExtra("newMenuInputItem");
-
-            // 받아온 데이터 사용
-            if (receivedItem != null) {
-                Log.d("LoadingActivity", "Received Data: " + receivedItem.getStore_name() + " " +
-                        receivedItem.getPurpose() + " " + receivedItem.getResult_type() + " " +
-                        receivedItem.getTheme() + " " + receivedItem.getProduct_name() + " " +
-                        receivedItem.getPrice() + " " + receivedItem.getDescription() + " " +
-                        receivedItem.getBusiness_hours() + " " + receivedItem.getLocation() + " " +
-                        receivedItem.getContact());
-                restAPIPost(receivedItem);
-            }
-
-        }*/
-        //////////////
-
-
 
     }
     public void initAPI(String baseUrl) {
@@ -183,7 +155,6 @@ public class LoadingActivity extends AppCompatActivity {
     }
     public boolean restAPIPost(NewMenuInputItem item) {
         // rest api
-        ///////////////////////////////////////
         final boolean[] isNewMenuInput = {false};
         Log.d(TAG, "POST");
 
@@ -230,8 +201,8 @@ public class LoadingActivity extends AppCompatActivity {
                 isNewMenuInput[0] = false;
             }
         });
-        ////
-        Log.d("결과 ", String.valueOf(isNewMenuInput[0]));
+
+        //Log.d("결과 ", String.valueOf(isNewMenuInput[0]));
         return isNewMenuInput[0];
     }
 

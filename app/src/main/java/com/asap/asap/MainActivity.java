@@ -38,15 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private FragmentManager fm;
     private ArrayList<Fragment> fList;
-
     private Button loginButton, signUpButton;
-
-
-   // static public final String BASE_URL = "https://f18b-210-94-221-128.ngrok-free.app";
     static public final String BASE_URL = "https://9eae-203-236-3-227.ngrok-free.app";
-
     static public MyAPI myAPI;
-
     int  resultImageUrlListCount = 1; // 총 생성 이미지 개수
     ArrayList<String> resultImageUrlList = new ArrayList<>();
 
@@ -90,14 +84,10 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //restAPIGet();
+                //restAPIGet(); // test용
 
                 // 클릭 시 이후 백과 연결해서 RestAPI 확인 후 인증 과정
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                //Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
-                //Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                //Intent intent = new Intent(MainActivity.this, MultiResultImageActivity.class);
-                //Intent intent = new Intent(MainActivity.this, GlideTestActivity.class);
                 // FLAG_ACTIVITY_SINGLE_TOP : 실행하고자 하는 Activity가 존재하면 생성 되신 순서를 가장 위로 올리는 flag
                 // 이것을 사용하여 MainActivity를 OnCreate하지 않고 재사용하기 때문에 초기화가 되지 않음
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -173,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                 // 호출 결과로 PERMISSION_GRANTED or PERMISSION_DENIED 반환 받은 것을 확인
                 // 초기 실행에서 권한 허용을 한 후에 다시 앱을 실행했을 때는 이미 권한이 있어서 아래와 같은 토스트 메세지를 띄워줌
-                Toast.makeText(this, curPermission + " 권한 있음", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, curPermission + " 권한 있음", Toast.LENGTH_SHORT).show();
             } else {
                 // 만약 권한 설정이 허용되어 있지 않은 경우 권한 없음이 토스트 메세지로 뜨고
                 ////Toast.makeText(this, curPermission + " 권한 없음", Toast.LENGTH_SHORT).show();

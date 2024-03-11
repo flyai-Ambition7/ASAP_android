@@ -4,28 +4,13 @@ import java.io.Serializable;
 
 public class NewMenuInputItem implements Serializable {
     private static final long serialVersionUID = 1L;
-  //  String result_image_url; // 생성된 이미지 url 지안 테스트
-
     String image; // Base64로 변환된 이미지 데이터
-  //  String user_input_image;
 
     // TextUpload1Activiy에서 받는 것들
     String store_name,purpose, result_type, theme;
 
     // 별도 - 신메뉴일 때
     String product_name,price,description, business_hours, location, contact;
-
-    /*
-    public String getResult_image_url() {
-        return result_image_url;
-    }
-
-    public void setResult_image_url(String result_image_url) {
-        this.result_image_url = result_image_url;
-    }
-
-     */
-
 
 
     public String getImage() {
@@ -35,16 +20,6 @@ public class NewMenuInputItem implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
-/*
-
-    public String getUser_input_image() {
-        return user_input_image;
-    }
-
-    public void setUser_input_image(String user_input_image) {
-        this.user_input_image = user_input_image;
-    }
-*/
     public String getStore_name() {
         return store_name;
     }
@@ -117,15 +92,6 @@ public class NewMenuInputItem implements Serializable {
         this.contact = contact;
     }
 
-    /*
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-*/
     public String getPrice() {
         return price;
     }

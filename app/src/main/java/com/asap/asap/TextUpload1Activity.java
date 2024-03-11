@@ -35,7 +35,6 @@ public class TextUpload1Activity extends AppCompatActivity {
         leftButton = findViewById(R.id.textUpload1LeftImageButton);
         rightButton = findViewById(R.id.textUpload1RightImageButton);
         storeNameEditText = findViewById(R.id.storeNameEditText);
-        //themeEditText = findViewById(R.id.themeEditText);
         purposeSelectTextView = findViewById(R.id.purposeSelectTextView);
         resultFormSelectTextView = findViewById(R.id.resultFormSelectTextView);
         themeSelectTextView = findViewById(R.id.themeSelectTextView);

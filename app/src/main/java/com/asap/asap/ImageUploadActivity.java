@@ -1,6 +1,5 @@
 package com.asap.asap;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,23 +17,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+
 /* 카메라 촬영 관련 */
 // 카메라 촬영하여 uri 얻고 제대로 화면에 표시하는 등에 필요한 것들
 import androidx.core.content.FileProvider;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -66,9 +55,6 @@ public class ImageUploadActivity extends AppCompatActivity {
         leftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intent = new Intent(ImageUploadActivity.this, LoginActivity.class);
-               // intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-               // startActivity(intent);
                 // 왼쪽 버튼 막아두기 = 로그인, 회원가입 화면으로 못가게
             }
         });
@@ -105,13 +91,12 @@ public class ImageUploadActivity extends AppCompatActivity {
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 사용자 갤러리 열어서 이미지 삽입하게 함
+                // 1) 사용자 갤러리 열어서 이미지 삽입하게 함
                 // openGallery();
-                // 인텐트를 사용하여 갤러리에서 뭘 가져올건지 수행함
+                // 2) 인텐트를 사용하여 갤러리에서 뭘 가져올건지 수행함
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent, 1);
-
 
             }
         });
@@ -187,7 +172,6 @@ public class ImageUploadActivity extends AppCompatActivity {
         }
     }
 
-    /////////////////////////////
 
     // 카메라 관련
     private int exifOrientationToDegrees(int exifOrientation) {

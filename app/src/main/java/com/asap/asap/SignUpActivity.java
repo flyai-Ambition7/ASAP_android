@@ -21,22 +21,12 @@ import retrofit2.Response;
 public class SignUpActivity extends AppCompatActivity {
     EditText signUpUserNameEditText, signUpPasswordEditText, signUpEmailEditText, signUpMobileEditText;
     Button signUpButton;
-
     String username, password, email, phone;
-
-
-
-  //  private final String BASE_URL = "https://1e15-203-236-8-208.ngrok-free.app";
-  //  private MyAPI myAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        ////
-     //   initSignUpAPI(BASE_URL);
-        ////
 
         // 객체 가져오기
         signUpUserNameEditText = findViewById(R.id.signUpUserNameEditText);
@@ -76,22 +66,14 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean signUp(){
-        // rest api
-        ///////////////////////////////////////
         final boolean[] isSignUp = {false};
         Log.d(TAG,"POST");
         SignUpItem item = new SignUpItem();
-                    /*
-                    item.setUsername(username);
-                    item.setPassword(password);
-                    item.setEmail(email);
-                    item.setPhone(phone);*/
-                 //   item.setName("이름이다!");
         item.setUsername("abcd1234");
         item.setPassword("yujin7894@");
         item.setEmail("yujin45@sookmyung.ac.kr");
         item.setPhone("010-8951-1834");
-        // 더 살펴봐야 함
+
 
         Call<SignUpItem> postCall = myAPI.post_signup(item);
         postCall.enqueue(new Callback<SignUpItem>() {
@@ -119,17 +101,4 @@ public class SignUpActivity extends AppCompatActivity {
         return isSignUp[0];
     }
 
-    /*
-    private void initSignUpAPI(String baseUrl){
-
-        Log.d(TAG,"initSignUpAPI : " + baseUrl);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        myAPI = retrofit.create(MyAPI.class);
-    }
-
-     */
 }

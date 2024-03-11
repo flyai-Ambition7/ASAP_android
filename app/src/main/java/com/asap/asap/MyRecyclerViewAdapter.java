@@ -3,7 +3,6 @@ package com.asap.asap;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
@@ -13,11 +12,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -68,10 +64,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
         Log.d(TAG, "onBindViewHolder");
 
         MyViewHolder myViewHolder = (MyViewHolder) holder;
-
-
-        //myViewHolder.resultImageView.setImageURI(Uri.parse(dataModels.get(position).toString()));
-        // ▲ 이미지 설정
+        //  이미지 설정
         GlideApp.with(context).load(Uri.parse(dataModels.get(position).getImageUrl()))
                 .placeholder(R.drawable.result_page_default_image)
                 .into(myViewHolder.resultImageView);
@@ -94,11 +87,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
         myViewHolder.resultImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context, position+"번째 아이템 클릭", Toast.LENGTH_SHORT).show();
-                // 인텐트로 넘겨줘야 하는 부분
-              //  Intent intent = new Intent(myViewHolder.itemView.getContext(), MultiResultImageActivity.class);
-              //  intent.putExtra("clickPosition", position); // position만 넘겨주면 어떤 영화, 스케줄인지 static 변수에 접근 가능
-              //  ContextCompat.startActivity(myViewHolder.itemView.getContext(), intent, null);
                 View dialogView = View.inflate(context, R.layout.result_image_dialog, null);
                 AlertDialog.Builder dlg = new AlertDialog.Builder(context);
                 ImageView dialogImageView = dialogView.findViewById(R.id.resultImageDialogView);
@@ -110,7 +98,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter {
                         .placeholder(R.drawable.result_page_default_image)
                         .into(dialogImageView);
                 dlg.setTitle("결과 이미지");
-                dlg.setIcon(R.drawable.result_page_default_image);
+                dlg.setIcon(R.drawable.asap_icon);
                 dlg.setView(dialogView);
                 dlg.setNegativeButton("닫기", null);
                 dlg.show();

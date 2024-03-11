@@ -4,18 +4,6 @@ package com.asap.asap;
 public class SignUpItem {
     // 회원가입 username, password, email, mobile
     private String username,password, email, phone;
-   /*
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-*/
-
     public String getUsername() {
         return username;
     }

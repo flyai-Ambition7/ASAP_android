@@ -19,13 +19,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-
     EditText loginUserNameEditText, loginPasswordImageView;
     TextView singUpTextView;
     Button startButton;
-
     String loginID, loginPW;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +77,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-
 
     }
 

@@ -3,7 +3,6 @@ package com.asap.asap;
 import static android.content.ContentValues.TAG;
 
 import static com.asap.asap.MainActivity.BASE_URL;
-import static com.asap.asap.MainActivity.myAPI;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -38,18 +36,12 @@ public class TextUpload2Activity extends AppCompatActivity {
     // 입력 내용
     public static String productName, price, info; // 필수
     public static String time, where, storePhone; // 선택
-    ////
 
-    /////////
     public static String storeName, theme, purpose, resultForm;
     String imageUriString;
      Uri imageUri;
     Bitmap bitmap;
     public static String base64Image;
-
-
-    //public final String BASE_URL = "https://7818-203-236-8-208.ngrok-free.app";
-   // public final String BASE_URL = "https://172.23.250.6";
     public MyAPI myAPI;
 
     @Override
@@ -91,13 +83,6 @@ public class TextUpload2Activity extends AppCompatActivity {
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                Intent intent = new Intent(TextUpload2Activity.this, ResultActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-
-                */
-                /////////////// 백엔드 연결시 이 부분 주석 풀기 ///////////////
                 // Uri를 Bitmap으로 변환
                 bitmap = getBitmapFromUri(imageUri);
 
@@ -124,58 +109,21 @@ public class TextUpload2Activity extends AppCompatActivity {
 
                    loadingIntent(); // 이거 사용해야 함
                    // restAPI();
-
-                   /*
-                    Intent intent = new Intent(TextUpload2Activity.this, MultiResultImageActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-
-                    */
                 } else {
                     // 빈 값이 있으면 Toast 메시지 표시
                     Toast.makeText(TextUpload2Activity.this, "모든 필수 입력란을 채워주세요", Toast.LENGTH_SHORT).show();
                 }
-
-                /////////////////
-
-
             }
         });
     }
 
     public void loadingIntent(){
-        /*
-        NewMenuInputItem item = new NewMenuInputItem();
-        Log.d("NewMenuInputItem item", "입력란~~~~~~~~~~~~~~~~~~~~");
-        //item.setImage("테스트 이미지"); // 이후 추가
-
-        item.setImage(base64Image); // base64로 변형한 이미지 전달 민수 테스트
-        item.setStore_name(storeName);
-        item.setPurpose(purpose);
-        item.setResult_type(resultForm);
-        item.setTheme(theme);
-        item.setProduct_name(productName);
-        //item.setPrice(Integer.parseInt(price)); // 민수
-        item.setPrice(price); // 지안
-        item.setDescription(info);
-        item.setBusiness_hours(time);
-        item.setLocation(where);
-        item.setContact(storePhone);
-        Log.d("TextUpload2Activity intent 잘 받아옴", storeName + purpose + resultForm+theme+productName+price+info+time+where+storePhone);
-
-         */
         // Intent 생성
         Intent intent = new Intent(this, LoadingActivity.class);
-
-        //intent.putExtra("newMenuInputItem", item);
-
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-
     }
     public boolean restAPI() {
-        // rest api
-        ///////////////////////////////////////
         final boolean[] isNewMenuInput = {false};
         Log.d(TAG, "POST");
         NewMenuInputItem item = new NewMenuInputItem();

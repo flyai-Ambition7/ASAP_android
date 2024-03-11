@@ -17,7 +17,7 @@
         android:text="ASAP"
         android:gravity="center"
         android:layout_gravity="center"
-        android:textColor="#DD6140"
+        android:textColor="@color/mainOrange"
         android:textSize="30dp"
         android:textStyle="bold|italic"
         />

@@ -24,17 +24,9 @@ import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-/////////
-import android.graphics.drawable.Drawable
-import com.bumptech.glide.Glide
-
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 
 import com.bumptech.glide.request.target.Target
-//////////
+
 class ResultActivity : AppCompatActivity() {
     var resultImageView: ImageView? = null
     var homeButton: Button? = null
@@ -49,7 +41,7 @@ class ResultActivity : AppCompatActivity() {
         imageUrl = getIntent().getStringExtra("imageUrl");
         Log.d("받은url이다", imageUrl.toString());
 
-        // 실제 구현시 intent로 resultImageUrlList 받아오기
+        // 다중 생성시 intent로 resultImageUrlList 받아오기
         //resultImageUrlList = intent.getStringArrayListExtra("resultImageUrlList") ?: ArrayList()
 
         //////
@@ -57,50 +49,9 @@ class ResultActivity : AppCompatActivity() {
         homeButton = findViewById(R.id.homeButton)
         saveButton = findViewById(R.id.saveButton)
 
-        /*
-        // test data
-        //https://lakue.tistory.com/10
-        Log.d("Glide 라이브러리 사용 ", "0000000000000000000000000")
-        val testUrl = "https://www.job-post.co.kr/news/photo/202307/81602_85141_1831.jpg"
-        Log.d("사용할 url", testUrl)
-        //String testUrl = "C:\\Users\\11\\Desktop\\강의자료\\alice_image";
-        */
-        // 리스트로 받아오는 것은 아래로 실행
-        /*
-        // 리스트 비어 있는지 확인 후 가장 최근 항목(마지막)을 가져와서 glide로 그림
-        if (resultImageUrlList.isNotEmpty()) {
-            val lastImageUrl = resultImageUrlList.last()
-
-            resultImageView?.let {
-                GlideApp.with(this).load(lastImageUrl)
-                    .placeholder(R.drawable.result_page_default_image)
-                    .apply(RequestOptions()
-                        .signature(ObjectKey("signature string"))
-                        .skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    )
-                    .error(R.drawable.onboarding_image_01)
-                    .fallback(R.drawable.onboarding_image_02)
-                    .into(it)
-            }
-        }
-        */
 
         resultImageView?.let {
-            /*
-            GlideApp.with(this).load(imageUrl)
-                .override(Target.SIZE_ORIGINAL)
 
-                .placeholder(R.drawable.result_page_default_image)
-                .apply(RequestOptions()
-                    .signature(ObjectKey("signature string"))
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                )
-                .error(R.drawable.main_logo_asap)
-                .fallback(R.drawable.onboarding_image_02)
-                .into(it)
-            */
             GlideApp.with(this)
                 .load(imageUrl)
                 .override(Target.SIZE_ORIGINAL)
@@ -116,79 +67,7 @@ class ResultActivity : AppCompatActivity() {
                 .into(it)
         }
 
-
-
-
-        Log.d("Glide 완료 ", "1111111111111111111111")
-
-
-        /*
-        Log.d("HttpURLConnection 사용 ", "0000000000000000000000000");
-        imageUrl = "https://i.namu.wiki/i/YhRZX5kAVgZ0cpCjqX4s0AA0dZ-pOMf4Rb5URLmgiaiaP5MxXybfEmVP4eGaX9n0GOfmfusFbvinsRdpJLB8-W6vhi9GlY_FET1hYfmuvWc_FWmVYnP3cc7jGwl50tGRUOH8hWsp23EhwwzdPybubA.webp";
-        Thread Thread = new Thread() {
-
-            @Override
-
-            public void run(){
-
-                try{
-                    if (!imageUrl.isEmpty()){
-                        //URL url = new URL("https://7818-203-236-8-208.ngrok-free.app/media/input/8c42e56d-f75.jpg");
-                        URL url = new URL(imageUrl);
-                        Log.d("표시 할 url", imageUrl);
-                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-
-                        //     HttpURLConnection의 인스턴스가 될 수 있으므로 캐스팅해서 사용한다
-                        //     conn.setDoInput(true); //Server 통신에서 입력 가능한 상태로 만듦
-                        conn.connect();
-
-                        InputStream is = conn.getInputStream();
-                        //inputStream 값 가져오기
-
-                        bitmap = BitmapFactory.decodeStream(is);
-                        // Bitmap으로 반환
-
-                    }
-
-
-
-
-                } catch (IOException e){
-
-                    e.printStackTrace();
-                    Log.d("첫번째 thread 오류", "--------------");
-
-                }
-
-            }
-
-        };
-
-        Thread.start();
-
-
-
-        try{
-
-            //join() 호출하여 별도의 작업 Thread가 종료될 때까지 메인 Thread가 기다림
-            Thread.join();
-            if (bitmap!=null){resultImageView.setImageBitmap(bitmap);}else{
-                Log.d("비트맵 없다", "--------------");
-            }
-
-            Log.d("조인", "--------------");
-        }catch (InterruptedException e){
-
-            e.printStackTrace();
-            Log.d("조인 실패", "--------------");
-
-        }
-
-        Log.d("HttpURLConnection 사용 끝 ", "111111111111111");
-
-         */
-
-        ///
+        //Log.d("Glide 완료 ", "1111111111111111111111")
 
         // 버튼 동작
         homeButton?.setOnClickListener(View.OnClickListener {
@@ -198,15 +77,11 @@ class ResultActivity : AppCompatActivity() {
         })
         saveButton?.setOnClickListener(View.OnClickListener {
             saveImageToGallery() // imageView에 있는 이미지를 저장함
-            // rest api로 가져온 이미지를 그대로 저장하면 되겠지만 일단 imageview에서 가져와서 저장하는 것으로 짜둠
-
-
             //Toast.makeText(ResultActivity.this, "저장 버튼 클릭", Toast.LENGTH_SHORT).show();
             val intent = Intent(this@ResultActivity, ExtraConnectionActivity::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
             startActivity(intent)
         })
-        //setContentView(R.layout.activity_result)
     }
 
     private fun saveImageToGallery() {
