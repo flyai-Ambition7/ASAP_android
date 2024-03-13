@@ -143,19 +143,3 @@ kapt 'com.github.bumptech.glide:compiler:4.16.0'
             gradle-wrapper.properties
 
 ```
-
-
-## 페이지 구성 : UI/UX 흐름
-![슬라이드5](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/06449904-5e1e-4535-b409-8ab1446eee2c)
-![슬라이드6](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/e1d8dff1-f4bc-43ed-be3e-0252663f7847)
-![슬라이드7](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/ec9266c9-6603-407d-8bdf-71c1d3e7af91)
-![슬라이드8](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/99c87130-c023-40c6-a709-9fc321e1d50f)
-![슬라이드9](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/f64b4a7a-7ac9-493e-8812-b0edd8d13c1f)
-![슬라이드10](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/163fbe0f-c5c1-46c0-8408-3e31cd983633)
-![슬라이드11](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/dab49a06-96f1-4b78-bcd1-6ff52d940df4)
-![슬라이드12](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/5465b7ba-5ed8-4b6d-9c03-0e54818d9d6c)
-![슬라이드13](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/021caf02-54a8-4e05-801e-448eff8ac8b7)
-![슬라이드14](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/0b7886f1-028a-48b7-8ecc-f0c1831a9c0f)
-![슬라이드15](https://github.com/flyai-Ambition7/ASAP_android/assets/113690378/5c48587b-8d89-414f-bf6c-323d05a1af18)
-
-
